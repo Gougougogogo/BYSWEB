@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0d0cbc78b5ae489da59d63c049709d5a" Name="Diagram1">
+        <EntityTypeShape EntityType="BYSDNModel.Table_Answer" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_Attachments" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_LogEntity" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_OperationLog" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_OperationType" Width="1.5" PointX="1.5" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_Question" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_User" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_Answer_Table_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_Answer_Table_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_Attachments_Table_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_LogEntity_Table_OperationType" ManuallyRouted="false" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_OperationLog_Table_LogEntity" ManuallyRouted="false" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_OperationLog_Table_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_Question_Table_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

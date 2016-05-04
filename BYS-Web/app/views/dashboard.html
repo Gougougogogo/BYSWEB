@@ -1,0 +1,221 @@
+﻿<div class="content-heading bg-white">
+  <div class="row">
+    <div class="col-sm-9">
+      <h4 class="m0 text-thin">Welcome to BYSDN</h4><small>Beyondsoft Develop Net</small>
+    </div>
+    <div class="col-sm-3 text-right hidden-xs">
+      <button type="button" class="mt-sm btn btn-labeled btn-default ripple">Apps<span class="btn-label btn-label-right"><i class="ion-plus-round"></i></span></button>
+    </div>
+  </div>
+</div>
+<div ng-controller="DashboardController as dash" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-lg-3">
+      <div class="card">
+        <div class="card-body pv">
+          <div class="clearfix">
+            <div class="pull-left">
+              <h4 class="m0 text-thin"><span class="mr-sm ion-ios-people"></span>350</h4><small class="m0 text-muted">User Count</small>
+            </div>
+            <div class="pull-right mt-lg">
+              <sparkline values="dash.sparkValue2" options="dash.sparkOpts" data-line-color="{{colorByName('green-500')}}"></sparkline>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-lg-3">
+      <div class="card">
+        <div class="card-body pv">
+          <div class="clearfix">
+            <div class="pull-left">
+              <h4 class="m0 text-thin"><span class="mr-sm ion-stats-bars"></span>3</h4><small class="m0 text-muted">Blog Count</small>
+            </div>
+            <div class="pull-right mt-lg">
+              <sparkline values="dash.sparkValue1" options="dash.sparkOpts" data-line-color="{{colorByName('info')}}"></sparkline>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-lg-3">
+      <div class="card">
+        <div class="card-body pv">
+          <div class="clearfix">
+            <div class="pull-left">
+              <h4 class="m0 text-thin"><span class="mr-sm ion-forward"></span>6</h4><small class="m0 text-muted">Today's Answer</small>
+            </div>
+            <div class="pull-right mt-lg">
+              <sparkline values="dash.sparkValue3" options="dash.sparkOpts" data-line-color="{{colorByName('purple-400')}}"></sparkline>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-lg-3">
+      <div class="card">
+        <div class="card-body pv">
+          <div class="clearfix">
+            <div class="pull-left">
+              <h4 class="m0 text-thin"><span class="mr-sm ion-paper-airplane"></span>12</h4><small class="m0 text-muted">Today's Question</small>
+            </div>
+            <div class="pull-right mt-lg">
+              <sparkline values="dash.sparkValue4" options="dash.sparkOpts" data-line-color="{{colorByName('pink-500')}}"></sparkline>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-8 col-md-12">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-heading">
+              <!-- START dropdown-->
+              <!--<div uib-dropdown="dropdown2" class="pull-right dropdown">
+                <button type="button" uib-dropdown-toggle="" class="btn btn-default btn-flat btn-flat-icon ripple"><em class="ion-android-more-vertical"></em></button>
+                <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                  <li><a href="">Last 30 days</a></li>
+                  <li><a href="">Last week</a></li>
+                  <li><a href="">Last year</a></li>
+                </ul>
+              </div>-->
+              <!-- END dropdown-->
+              <div class="card-title">New Questions</div><small>list the latest post</small>
+            </div>
+            <div class="card-body">
+                <div class="mda-list">
+                    <div class="mda-list-item">
+                        <img class="mda-list-item-img" alt="List user" src="app/img/user/01.jpg">
+                        <div class="mda-list-item-text">
+                            <h3><a href="#">测试是否刷新数据?</a></h3>
+                            <p>
+                                using System;
+                                using System.Collections.Generic;
+                                using System.Linq;
+                                using System.Web;
+                                using System.Web.Mvc;
+
+                                namespace STAC.Controllers
+                                {
+                                public class IKBController : Controller
+                                {
+                                // GET: IKB
+                                public ActionResult Upcomming()
+                                {
+                                return View();
+                                }
+                                }
+                                }
+                                上端代码运行不通过，是什么原因呢？
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mda-list-item">
+                        <img class="mda-list-item-img" alt="List user" src="app/img/user/02.jpg">
+                        <div class="mda-list-item-text">
+                            <h3><a href="#">Catherine Crawford</a></h3>
+                            <p>
+                                Near twenty years ago, Christina Cyr and Linda Inagawa started working at Microsoft on the same day. All week they kept finding their new colleagues mixing them up, until on the Friday they finally met. They've been friends ever since -- and now, they've teamed up to change the way mobile phones are designed.
+                                Cyr and Inagawa's company is called Dtoor -- whic...
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mda-list-item">
+                        <img class="mda-list-item-img" alt="List user" src="app/img/user/03.jpg">
+                        <div class="mda-list-item-text">
+                            <h3><a href="#">Rosemary Jimenez</a></h3>
+                            <h4>Brunch this weekend?</h4>
+                            <p> I'll be in your neighborhood doing errands</p>
+                        </div>
+                    </div>
+                    <div class="mda-list-item">
+                        <img class="mda-list-item-img" alt="List user" src="app/img/user/04.jpg">
+                        <div class="mda-list-item-text">
+                            <h3><a href="#">Guy Carpenter</a></h3>
+                            <h4>Brunch this weekend?</h4>
+                            <p> I'll be in your neighborhood doing errands</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>       
+      </div>
+    </div>
+    <div class="col-lg-4 col-xs-12">
+      <!-- Activity feed-->
+      <div class="card">
+        <div class="card-heading">
+          <!-- START dropdown-->
+          <!--<div uib-dropdown="dropdown2" class="pull-right dropdown">
+            <button type="button" uib-dropdown-toggle="" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+            <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+              <li><a href="">Last 30 days</a></li>
+              <li><a href="">Last week</a></li>
+              <li><a href="">Last year</a></li>
+            </ul>
+          </div>-->
+          <!-- END dropdown-->
+          <div class="card-title"><span class="ion-android-star"></span> BYS Star</div><small>Weekly most activity people rank</small>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="app/img/user/04.jpg" alt="User" class="img-circle thumb32"/></a></p>
+          <div class="oh">
+            <p>Fareast/v-kevxi</p>
+              <p class="bl pl">
+                  <i>Questions: 20 </i>
+              </p>
+              <p class="bl pl">
+                  <i>Answers: 15 </i>
+              </p>
+          </div>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="app/img/user/06.jpg" alt="User" class="img-circle thumb32"/></a></p>
+          <div class="oh">
+            <p><strong class="spr">Dora</strong><span>added a new task</span></p>
+            <p><em class="ion-calendar icon-fw"></em><a href="">Start migration</a></p>
+            <div class="clearfix">
+              <div class="pull-left text-muted"><em class="ion-android-time mr-sm"></em><span>3 hours ago</span></div>
+              <div class="pull-right"><span>2</span><em class="ion-star ml-sm text-warning"></em></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="app/img/user/07.jpg" alt="User" class="img-circle thumb32"/></a></p>
+          <div class="oh">
+            <p><strong class="spr">Kathryn</strong><span class="spr">published</span><a href="">Trip</a></p>
+            <p><a href=""><img src="app/img/pic1.jpg" alt="Pic" class="mr-sm thumb48"/></a><a href=""><img src="app/img/pic2.jpg" alt="Pic" class="mr-sm thumb48"/></a></p>
+            <div class="clearfix">
+              <div class="pull-left text-muted"><em class="ion-android-time mr-sm"></em><span>4 hours ago</span></div>
+              <div class="pull-right"><span>2</span><em class="ion-ios-heart ml-sm text-danger"></em></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="app/img/user/02.jpg" alt="User" class="img-circle thumb32"/></a></p>
+          <div class="oh">
+            <p><strong class="spr">Daniel</strong><span class="spr">joined to</span><a href="">Group</a></p>
+            <p><span class="image-list"><a href=""><img src="app/img/user/03.jpg" alt="User" class="img-circle thumb32"/></a><a href=""><img src="app/img/user/04.jpg" alt="User" class="img-circle thumb32"/></a><a href=""><img src="app/img/user/05.jpg" alt="User" class="img-circle thumb32"/></a><a href=""><img src="app/img/user/07.jpg" alt="User" class="img-circle thumb32"/></a><strong><a href="" class="ml-sm link-unstyled">+3</a></strong></span></p>
+            <div class="clearfix">
+              <div class="pull-left text-muted"><em class="ion-android-time mr-sm"></em><span>yesterday</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body bb">
+          <p class="pull-left mr"><a href=""><img src="app/img/user/03.jpg" alt="User" class="img-circle thumb32"/></a></p>
+          <div class="oh">
+            <p><strong class="spr">Leroy Day</strong><span class="spr">wakes up!</span></p>
+            <p class="bl pl"><i>That's awesome!</i></p>
+            <div class="clearfix">
+              <div class="pull-left text-muted"><em class="ion-android-time mr-sm"></em><span>2 weeks ago</span></div>
+            </div>
+          </div>
+        </div><a href="" class="card-footer btn btn-flat btn-default"><small class="text-center text-muted lh1">See more activities</small></a>
+      </div>
+    </div>
+  </div>
+</div>
