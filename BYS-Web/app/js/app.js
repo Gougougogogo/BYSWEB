@@ -914,8 +914,8 @@
                         'vendor/tinymce/tinymce.min.js',
                         'vendor/tinymce/plugins/table/plugin.min.js',
                         'vendor/tinymce/plugins/paste/plugin.min.js',
-                        'vendor/tinymce/plugins/spellchecker/plugin.min.js',
-                        'vendor/tinymce/ui-tinymce.js',
+                        'vendor/tinymce/plugins/spellchecker/plugin.min.js',                        
+                        'app/js/newpost.js'
                     ]   
             },
             'uiGmapgoogle-maps': {
@@ -1033,6 +1033,16 @@
             'blueimp-gallery': {
                 files: ['vendor/blueimp-gallery/js/jquery.blueimp-gallery.min.js',
                     'vendor/blueimp-gallery/css/blueimp-gallery.min.css'
+                ]
+            },
+            'bbsDetail': {
+                files: [
+                    'app/js/bbsdetail.js'
+                ]
+            },
+            'bbsHome': {
+                files: [
+                    'app/js/bbshome.js'
                 ]
             }
         });
@@ -1483,12 +1493,19 @@
             url: '/newpost',
             title: 'NewQuestion',
             templateUrl: 'newpost.html',
-            require: ['ui.select', 'ui.tinymce']
+            require: ['ui.select', 'ui.tinymce', 'ngDropzone']
         })
         .state('app.bbs.home', {
             url: '/home',
             title: 'Home',
-            templateUrl: 'bbs-home.html'
+            templateUrl: 'bbs-home.html',
+            require: ['bbsHome']
+        })
+        .state('app.bbs.detail', {
+            url: '/detail/:bbsId',
+            title: 'Detail',
+            templateUrl: 'bbs-detail.html',
+            require: ['bbsDetail']
         });
     }
 

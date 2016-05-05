@@ -45,6 +45,18 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lucene\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Highlighter, Version=2.3.2.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lucene\Lucene.Net.Contrib.Highlighter.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Memory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lucene\Lucene.Net.Contrib.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -120,6 +132,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\MIMETypeHelper.cs" />
+    <Compile Include="Controllers\BBSController.cs" />
     <Compile Include="Entity\BYSDNEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -139,6 +153,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lucene\Lucener.cs" />
+    <Compile Include="Lucene\SearchResult.cs" />
+    <Compile Include="Models\AttachmentModel.cs" />
+    <Compile Include="Models\BBSContentModel.cs" />
+    <Compile Include="Models\BBSHomePageDataModel.cs" />
+    <Compile Include="Models\BBSTitleModel.cs" />
+    <Compile Include="Models\DashBoardModel.cs" />
+    <Compile Include="Models\HomePageModel.cs" />
+    <Compile Include="Models\QeustionBriefModel.cs" />
+    <Compile Include="Models\ReplyDetailsModel.cs" />
+    <Compile Include="Models\SearchResultModel.cs" />
+    <Compile Include="Models\SummaryModel.cs" />
+    <Compile Include="Models\TimeLineBodyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entity\Table_Answer.cs">
       <DependentUpon>BYSDNEntities.tt</DependentUpon>
@@ -197,6 +224,10 @@
     <Content Include="app\img\user\06.jpg" />
     <Content Include="app\img\user\07.jpg" />
     <Content Include="app\js\app.js" />
+    <Content Include="app\js\bbsdetail.js" />
+    <Content Include="app\js\bbshome.js" />
+    <Content Include="app\js\newpost.js" />
+    <Content Include="app\views\bbs-detail.html" />
     <Content Include="app\views\bbs-home.html" />
     <Content Include="app\views\core.layout.html" />
     <Content Include="app\views\dashboard.html" />
@@ -219,6 +250,15 @@
       <LastGenOutput>BYSDNEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="Lucene\Lucene.Net.Contrib.Highlighter.dll" />
+    <Content Include="Lucene\Lucene.Net.Contrib.Highlighter.pdb" />
+    <Content Include="Lucene\Lucene.Net.Contrib.Highlighter.XML" />
+    <Content Include="Lucene\Lucene.Net.Contrib.Memory.dll" />
+    <Content Include="Lucene\Lucene.Net.Contrib.Memory.pdb" />
+    <Content Include="Lucene\Lucene.Net.Contrib.Memory.XML" />
+    <Content Include="Lucene\Lucene.Net.dll" />
+    <Content Include="Lucene\Lucene.Net.pdb" />
+    <Content Include="Lucene\Lucene.Net.XML" />
     <Content Include="vendor\angular-animate\angular-animate.js" />
     <Content Include="vendor\angular-bootstrap-colorpicker\css\colorpicker.css" />
     <Content Include="vendor\angular-bootstrap-colorpicker\js\bootstrap-colorpicker-module.js" />
@@ -372,6 +412,15 @@
     <Content Include="vendor\jquery.browser\dist\jquery.browser.js" />
     <Content Include="vendor\jquery.easy-pie-chart\dist\angular.easypiechart.min.js" />
     <Content Include="vendor\jquery\dist\jquery.min.js" />
+    <Content Include="vendor\layer\extend\layer.ext.js" />
+    <Content Include="vendor\layer\layer.js" />
+    <Content Include="vendor\layer\skin\default\icon-ext.png" />
+    <Content Include="vendor\layer\skin\default\icon.png" />
+    <Content Include="vendor\layer\skin\default\loading-0.gif" />
+    <Content Include="vendor\layer\skin\default\loading-1.gif" />
+    <Content Include="vendor\layer\skin\default\loading-2.gif" />
+    <Content Include="vendor\layer\skin\layer.css" />
+    <Content Include="vendor\layer\skin\layer.ext.css" />
     <Content Include="vendor\loaders.css\loaders.css" />
     <Content Include="vendor\lodash\dist\lodash.min.js" />
     <Content Include="vendor\material-colors\dist\colors.css" />
@@ -768,7 +817,9 @@
   <ItemGroup>
     <Folder Include="API\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Attachments\" />
+    <Folder Include="Images\" />
+    <Folder Include="Indexer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

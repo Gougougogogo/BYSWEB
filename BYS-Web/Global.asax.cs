@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BYSDN.Lucene;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +20,13 @@ namespace BYS_Web
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            //init search engine
+            if (!Lucener.IsInitalized)
+            {
+                Lucener lucene = new Lucener();
+                lucene.ImportData();
+            }
         }
     }
 }
