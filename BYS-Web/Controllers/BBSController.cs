@@ -24,6 +24,38 @@ namespace BYS_Web.Controllers
         {
             return View();
         }
+
+        public JsonResult GetBBSQuestionPageCount(int pagecount)
+        {
+            int bbsCount = (from a in entities.Table_Question
+                            select a.ID).Count();
+            int pageCount = (bbsCount / pagecount) + (bbsCount % pagecount > 0 ? 1 : 0);
+
+            return Json(new { success = true, retData = pageCount }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetBBSDetail(string ID)
+        {
+            Guid Id = new Guid(ID);
+            Table_Question question = (from a in entities.Table_Question
+                                       where a.ID == Id
+                                       select a).FirstOrDefault();
+            if (question != null)
+            {
+                BBSContentModel result = new BBSContentModel();
+                result.BBSId = question.ID.ToString();
+                result.Content = question.Content;
+                result.Date = GetStringData(question.Date);
+                result.PublisherEmail = GetEmail(question.Table_User.Name);
+                result.PublisherImg = "../" + question.Table_User.Photo;
+                result.PublisherName = question.Table_User.Name;
+                result.Tags = question.Tags;
+                result.Title = question.Tittle;
+                return Json(new { success = true, retData = result }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, retData = "Fail on get bbs content" }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult RequestQuestionList(int page)
         {
             int start = (page - 1) * 10;

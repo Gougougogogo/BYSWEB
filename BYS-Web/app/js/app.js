@@ -915,7 +915,6 @@
                         'vendor/tinymce/plugins/table/plugin.min.js',
                         'vendor/tinymce/plugins/paste/plugin.min.js',
                         'vendor/tinymce/plugins/spellchecker/plugin.min.js',                        
-                        'app/js/newpost.js'
                     ]   
             },
             'uiGmapgoogle-maps': {
@@ -1037,14 +1036,23 @@
             },
             'bbsDetail': {
                 files: [
-                    'app/js/bbsdetail.js'
+                    'vendor/highlight/styles/tomorrow.css',
+                    'app/js/bbsdetail.js',
+                    'vendor/highlight/highlight.pack.js',
+                    'vendor/pagination/jquery.twbsPagination.min.js'
+                ]
+            },
+            'bbsNewpost': {
+                files: [
+                    'app/js/newpost.js'
                 ]
             },
             'bbsHome': {
                 files: [
-                    'app/js/bbshome.js'
+                    'app/js/bbshome.js',
+                    'vendor/pagination/jquery.twbsPagination.min.js'
                 ]
-            }
+            },
         });
 
 })();
@@ -1493,7 +1501,7 @@
             url: '/newpost',
             title: 'NewQuestion',
             templateUrl: 'newpost.html',
-            require: ['ui.select', 'ui.tinymce', 'ngDropzone']
+            require: ['ui.select', 'ui.tinymce', 'ngDropzone', 'bbsNewpost']
         })
         .state('app.bbs.home', {
             url: '/home',
@@ -1505,10 +1513,9 @@
             url: '/detail/:bbsId',
             title: 'Detail',
             templateUrl: 'bbs-detail.html',
-            require: ['bbsDetail']
+            require: ['bbsDetail', 'ui.tinymce']
         });
     }
-
 })();
 
 (function() {

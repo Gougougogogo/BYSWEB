@@ -1,3 +1,95 @@
-﻿<div ng-controller="bbsDetailController">
-    <h1>{{ url }}</h1>
+﻿<style>
+    .reply-body  .reply-content {
+        border-bottom: 1px solid #eee;
+    }
+
+    .reply-content {
+        padding:10px 10px;
+        margin-top:5px;
+        border-top: 1px solid #eee;
+    }
+</style>
+<div ng-controller="bbsDetailController" ng-init="init()">
+    <div class="container-overlap bg-indigo-500">
+        <div class="media m0 pv">
+            <div class="media-body media-middle">
+                <h4 class="media-heading">Detail page</h4><span class="text-muted">Question Details</span>
+            </div>
+        </div>
+    </div>
+    <div class="container container-lg">
+        <div class="card">
+            <div class="modal-header">
+                <div class="media m0 pv">
+                    <div class="media-left"><img src="{{ detail.PublisherImg }}" alt="User" class="media-object img-circle thumb64" /></div>
+                    <div class="media-body media-middle">
+                        <h4 class="media-heading">{{ detail.Title + '[' + detail.Tags + ']' }}</h4><span class="text-muted">{{ detail.PublisherName + '('+detail.PublisherEmail+')' }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- START dropdown-->
+                <!--<div uib-dropdown="dropdown2" class="pull-right dropdown">
+                    <button type="button" uib-dropdown-toggle="" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+                    <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+                        <li><a href=""><em class="ion-star icon-fw"></em>Favorite</a></li>
+                        <li><a href=""><em class="ion-ios-box icon-fw"></em>Archive</a></li>
+                        <li><a href="" ng-click="mod.close()"><em class="ion-trash-a icon-fw"></em>Discard</a></li>
+                    </ul>
+                </div>-->
+                <!-- END dropdown-->
+                <p class="text-muted">{{ detail.Date }}</p>
+                <div id="bbsContent" ng-bind-html="detail.Content|to_trusted">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card" ng-if="showReply">
+            <div class="card-body">
+                <div class="text-left">
+                    <h5>Replys</h5>
+                </div>
+                <hr />
+                <div class="reply-body" ng-repeat="reply in replys">
+                    <p>{{ '#'+reply.Order }}</p>
+                    <div class="media m0 pv">
+                        <div class="media-left"><img src="{{ reply.UserImg }}" alt="User" class="media-object img-circle thumb32" /></div>
+                        <div class="media-body media-middle">
+                            <span class="text-muted">{{ reply.UserName + '('+reply.UserEmail+')' }}</span>
+                        </div>
+                        <div class="reply-content" ng-bind-html="reply.ReplyContent|to_trusted">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul id="pagination" class="pagination"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="reply">
+            <div class="modal-footer">
+                <div class="text-left">
+                    <h5>Publish reply</h5>
+                </div>
+                <hr />
+                <div class="media m0 pv">
+                    <div class="media-body media-middle">
+                        <form action="">
+                            <div class="mda-form-group">
+                                <div class="mda-form-control pt0">
+                                    <textarea rows="3" aria-multiline="true" tabindex="0" aria-invalid="false" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <button ng-click="publishReply()" class="btn btn-success">Send</button>
+            </div>
+        </div>
+    </div>
 </div>

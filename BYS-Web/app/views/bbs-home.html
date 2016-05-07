@@ -1,45 +1,50 @@
-﻿<div class="container-overlap bg-indigo-500">
-    <div class="media m0 pv">
-        <div class="media-body media-middle">
-            <h4 class="media-heading">BBS home page</h4><span class="text-muted">List the latest questions</span>
+﻿<div ng-controller="bbsHomeController" ng-init="init()">
+    <div class="container-overlap bg-indigo-500">
+        <div class="media m0 pv">
+            <div class="media-body media-middle">
+                <h4 class="media-heading">BBS home page</h4><span class="text-muted">List the latest questions</span>
+            </div>
         </div>
     </div>
-</div>
-<div class="container-lg" ng-controller="bbsHomeController">
-    <div class="row" ng-init="init()">
-        <div class="col-md-offset-1 col-md-10">
-            <div class="card">
-                <div class="card-body">
-                    <form class="mt ng-pristine ng-valid" action="">
-                        <div class="input-group mda-input-group">
-                            <div class="mda-form-group">
-                                <div class="mda-form-control">
-                                    <input tabindex="0" class="no-resize form-control" aria-invalid="false" aria-multiline="false" rows="1"></input>
-                                    <div class="mda-form-control-line"></div>
-                                    <label class="m0">Search for an answer?</label>
-                                </div><span class="mda-form-msg right">Post your keywords here</span>
-                            </div><span class="input-group-btn">
-                                <button class="btn btn-flat btn-success btn-circle" type="button"><em class="ion-checkmark-round"></em></button>
-                            </span>
-                        </div>
-                    </form>
-                </div>                
-                <div class="card-body" ng-repeat="question in questions">
-                    <!-- Inner card-->
-                    <div class="card">
-                        <div class="card-heading">
-                            <div class="media m0">
-                                <div class="media-left"><a href="#"><img class="media-object img-circle thumb48" alt="User" src="app/img/user/06.jpg"></a></div>
-                                <div class="media-body media-middle pt-sm">
-                                    <p class="media-heading m0 text-bold">{{ question.Title }}</p><small class="text-muted"><em class="ion-earth text-muted mr-sm"></em><span>{{ question.PublishDate }}</span></small>
-                                </div>
+    <div class="container container-lg">
+        <div class="card">
+            <div class="card-body">
+                <form class="mt ng-pristine ng-valid" action="">
+                    <div class="input-group mda-input-group">
+                        <div class="mda-form-group">
+                            <div class="mda-form-control">
+                                <input tabindex="0" class="no-resize form-control" aria-invalid="false" aria-multiline="false" rows="1"></input>
+                                <div class="mda-form-control-line"></div>
+                                <label class="m0">Search for an answer?</label>
+                            </div><span class="mda-form-msg right">Post your keywords here</span>
+                        </div><span class="input-group-btn">
+                            <button class="btn btn-flat btn-success btn-circle" type="button"><em class="ion-checkmark-round"></em></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body" ng-repeat="question in questions">
+                <!-- Inner card-->
+                <div class="card">
+                    <div class="card-heading">
+                        <div class="media m0">
+                            <div class="media-left"><img class="media-object img-circle thumb48" alt="User" src="{{ question.UserImage }}"></div>
+                            <div class="media-body media-middle pt-sm">
+                                <p class="media-heading m0 text-bold">{{ question.Title }}</p><small class="text-muted"><em class="ion-earth text-muted mr-sm"></em><span>{{ question.PublishDate }}</span></small>
                             </div>
-                            <div class="p">{{ question.Brief }}</div>
                         </div>
-                        <div class="card-footer">
-                            <button class="btn btn-flat btn-primary" type="button" ng-click="gotoDetail(question.BBSId)">View</button>
-                            <button class="btn btn-flat btn-primary" type="button" ng-click="layer.msg('function is on implementing.')">Quick Reply</button>
-                        </div>
+                        <div class="p">{{ question.Brief }}</div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-flat btn-primary" type="button" ng-click="gotoDetail(question.BBSId)">View</button>
+                        <button class="btn btn-flat btn-primary" type="button" ng-click="quickReply(question.BBSId)">Quick Reply</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul id="pagination" class="pagination"></ul>
                     </div>
                 </div>
             </div>

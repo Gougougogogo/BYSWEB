@@ -4,7 +4,7 @@
 
     function initTinymce() {
         tinymce.init({
-            selector: "textarea#elm1",
+            selector: "textarea",
 
             theme: "modern",
 
@@ -180,8 +180,6 @@
     $scope.title = '';
 
     $scope.tags = [];
-
-    $scope.content = '';
 
     $scope.selectedTags = 'Automation,C#,MVC';
 
