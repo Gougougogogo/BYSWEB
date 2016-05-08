@@ -137,12 +137,14 @@
             }
         });
     };
+
     function getLanguage(inputs) {
         if (inputs.length) {
             inputs = inputs.replace(/class="language-markup"/g, 'class="language-html"');
             return inputs;
         }
     }
+
     function validateRequest() {
 
         if (tinymce.activeEditor.getContent() == '') {
@@ -151,6 +153,7 @@
         }
         return true;
     }
+
     function getReply(page) {
         $.ajax({
             url: "../BBS/GetReplyDetails",

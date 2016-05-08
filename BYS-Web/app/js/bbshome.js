@@ -1,8 +1,8 @@
 ﻿angular.module('app.bbs').controller('bbsHomeController', ['$scope', '$http', '$state', function ($scope, $http, $state) {
     $scope.questions = [];
 
-    var pageCount = 0;
-    var currentPage = 1;
+    $scope.currentPage = 1;
+    $scope.pageCount = 1;
 
     function getBBSContent(page) {
         var load = layer.load(0);
@@ -32,32 +32,24 @@
     }
     //getBBSContent(1);
     $scope.init = function () {
-        $.ajax({
-            url: "../BBS/GetBBSQuestionPageCount",
-            type: 'Get',
-            data: { pagecount: 10 },
-            cache: false,
-            success: function (e) {
-                if (e.success) {
-                    if (e.retData > 0) {
-                        pageCount = e.retData;
+        getBBSContent(1);
 
-                        $('#pagination').twbsPagination({
-                            totalPages: pageCount,
-                            visiblePages: 5,
-                            onPageClick: function (event, page) {
-                                currentPage = page;
-                                getBBSContent(page);
-                            }
-                        });
-                    }
-                }
-            },
-            error: function (e) {
-                layer.msg(e.retData);
+        $http.get('../BBS/GetBBSQuestionPageCount', {
+            params: {
+                pagecount : 10
             }
-        });     
-    };
+        }).success(function (e) {
+            if (e.success) {
+                if (e.retData > 0) {
+                    $scope.pageCount = e.retData;
+                }
+            }
+        }).error(function (e) {
+            layer.msg(e.retData);
+        });
+    }
+
+    $scope.init();
 
     $scope.gotoDetail = function (id) {
         $state.go('app.bbs.detail', { bbsId: id });
@@ -65,5 +57,9 @@
 
     $scope.quickReply = function (id) {
         layer.msg('function is on implementing.')
+    };
+
+    $scope.pageChanged = function () {
+        getBBSContent($scope.currentPage);
     };
 }]);

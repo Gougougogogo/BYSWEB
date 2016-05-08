@@ -1,7 +1,6 @@
 ﻿angular.module('app.bbs').controller('NewPostController', ['$scope', '$http', '$state', function ($scope, $http, $state) {
     var attchmentsList = [];
     var common = {};
-
     function initTinymce() {
         tinymce.init({
             selector: "textarea",

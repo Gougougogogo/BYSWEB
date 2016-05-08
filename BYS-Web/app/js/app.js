@@ -146,7 +146,7 @@
     'use strict';
 
     angular
-        .module('app.bbs', []);
+        .module('app.bbs', [ ]);
 })();
 
 (function() {
@@ -1039,18 +1039,21 @@
                     'vendor/highlight/styles/tomorrow.css',
                     'app/js/bbsdetail.js',
                     'vendor/highlight/highlight.pack.js',
-                    'vendor/pagination/jquery.twbsPagination.min.js'
+                    'vendor/pagination/jquery.twbsPagination.min.js',
+                    'vendor/layer/layer.js'
                 ]
             },
             'bbsNewpost': {
                 files: [
-                    'app/js/newpost.js'
+                    'app/js/newpost.js',
+                    'vendor/layer/layer.js'
                 ]
             },
             'bbsHome': {
                 files: [
                     'app/js/bbshome.js',
-                    'vendor/pagination/jquery.twbsPagination.min.js'
+                    'vendor/pagination/jquery.twbsPagination.min.js',
+                    'vendor/layer/layer.js'
                 ]
             },
         });
@@ -1214,9 +1217,9 @@
         .module('app.settings')
         .run(settingsRun);
 
-    settingsRun.$inject = ['$rootScope'];
+    settingsRun.$inject = ['$rootScope','$http'];
 
-    function settingsRun($rootScope) {
+    function settingsRun($rootScope,$http) {
 
         var themes = [
             'theme-1',
@@ -1248,14 +1251,27 @@
             header: {
                 menulink: 'menu-link-slide'
             },
+            userName: '',
+            userImg: 'app/img/user/01.jpg',
             footerHidden: false,
             viewAnimation: 'ng-fadeInLeftShort',
             theme: themes[0],
             currentTheme: 0
         };
 
-        $rootScope.themes = themes;
+        $http.get('../User/GetUserInfo',{
+            cache: false
+        }).success(function (e) {
+                $rootScope.app.userName = e.userName;
+                $rootScope.app.userImg = e.userImg;
+            
+            //layer.close(load);
+        }).error(function (data) {
+            layer.msg(data);
+            //layer.close(load);
+        });
 
+        $rootScope.themes = themes;
     }
 
 })();
@@ -1399,7 +1415,7 @@
 
         var menuItem = {
             name: 'Blog',
-            sref: 'blog',
+            sref: 'app.blog.home',
             order: 3,
             imgpath: 'app/img/icons/clipboard.svg'
         };
@@ -1515,6 +1531,31 @@
             templateUrl: 'bbs-detail.html',
             require: ['bbsDetail', 'ui.tinymce']
         });
+    }
+})();
+
+(function () {
+    'use strict';
+
+    angular
+        .module('app.blog')
+        .run(userRoute);
+
+    userRoute.$inject = ['Router'];
+    function userRoute(Router) {
+        Router.state('app.blog', {
+            url: '/bbs',
+            title: 'BBS',
+            abstract: true,
+            template: '<div ui-view class="ng-fadeInLeftShort"></div>',
+            require: ['modernizr', 'icons', 'ng-mfb', 'md-colors']
+        })
+        .state('app.blog.home', {
+            url: '/home',
+            title: 'Home',
+            templateUrl: 'bbs-home.html',
+            require: ['bbsHome']
+        })
     }
 })();
 

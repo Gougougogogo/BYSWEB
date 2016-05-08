@@ -1,4 +1,4 @@
-﻿<div ng-controller="bbsHomeController" ng-init="init()">
+﻿<div ng-controller="bbsHomeController">
     <div class="container-overlap bg-indigo-500">
         <div class="media m0 pv">
             <div class="media-body media-middle">
@@ -13,7 +13,7 @@
                     <div class="input-group mda-input-group">
                         <div class="mda-form-group">
                             <div class="mda-form-control">
-                                <input tabindex="0" class="no-resize form-control" aria-invalid="false" aria-multiline="false" rows="1"></input>
+                                <input tabindex="0" class="no-resize form-control" aria-invalid="false" aria-multiline="false" rows="1"/>
                                 <div class="mda-form-control-line"></div>
                                 <label class="m0">Search for an answer?</label>
                             </div><span class="mda-form-msg right">Post your keywords here</span>
@@ -42,11 +42,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <ul id="pagination" class="pagination"></ul>
-                    </div>
-                </div>
+                <uib-pagination total-items="pageCount" items-per-page="1" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
             </div>
         </div>
     </div>
