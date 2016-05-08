@@ -12,14 +12,13 @@ namespace BYS_Web.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Table_OperationLog
+    public partial class Table_BlogAttachments
     {
         public System.Guid ID { get; set; }
-        public System.DateTime Date { get; set; }
-        public System.Guid LogEntityID { get; set; }
-        public System.Guid UserID { get; set; }
+        public System.Guid BlogID { get; set; }
+        public string FileName { get; set; }
+        public string FileSize { get; set; }
     
-        public virtual Table_LogEntity Table_LogEntity { get; set; }
-        public virtual Table_User Table_User { get; set; }
+        public virtual Table_Blog Table_Blog { get; set; }
     }
 }

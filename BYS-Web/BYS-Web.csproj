@@ -134,6 +134,7 @@
   <ItemGroup>
     <Compile Include="Common\MIMETypeHelper.cs" />
     <Compile Include="Controllers\BBSController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Entity\BYSDNEntities.Context.cs">
       <AutoGen>True</AutoGen>
@@ -151,6 +152,15 @@
       <DependentUpon>BYSDNEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Entity\Table_Blog.cs">
+      <DependentUpon>BYSDNEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Table_BlogAttachments.cs">
+      <DependentUpon>BYSDNEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Table_BlogItem.cs">
+      <DependentUpon>BYSDNEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,9 +237,16 @@
     <Content Include="app\js\app.js" />
     <Content Include="app\js\bbsdetail.js" />
     <Content Include="app\js\bbshome.js" />
+    <Content Include="app\js\blogdetail.js" />
+    <Content Include="app\js\bloghome.js" />
+    <Content Include="app\js\blogPost.js" />
     <Content Include="app\js\newpost.js" />
     <Content Include="app\views\bbs-detail.html" />
     <Content Include="app\views\bbs-home.html" />
+    <Content Include="app\views\blog-detail.html" />
+    <Content Include="app\views\blog-detail.tpl.html" />
+    <Content Include="app\views\blog-home.html" />
+    <Content Include="app\views\blog-new.tpl.html" />
     <Content Include="app\views\core.layout.html" />
     <Content Include="app\views\dashboard.html" />
     <Content Include="app\views\flot.html" />

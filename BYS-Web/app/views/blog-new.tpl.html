@@ -1,6 +1,6 @@
 ﻿<style>
     .droppable-area {
-        cursor:pointer;
+        cursor: pointer;
         display: inline-block;
         background: #ededed;
         border: 2px dashed #cbcbcb;
@@ -24,21 +24,21 @@
 <div class="container-overlap bg-indigo-500 ng-scope">
     <div class="media m0 pv">
         <div class="media-body media-middle">
-            <h4 class="media-heading">BBS new question page</h4><span class="text-muted">Post your new question here!</span>
+            <h4 class="media-heading">Blog new post page</h4><span class="text-muted">Post new blog here!</span>
         </div>
     </div>
 </div>
-<div class="container container-lg" ng-controller="NewPostController">
+<div class="container container-lg" ng-controller="postNewBlogController">
     <div class="card">
         <div class="card-body">
             <form class="mt ng-pristine ng-valid" action="">
                 <div class="input-group mda-input-group">
                     <div class="mda-form-group">
                         <div class="mda-form-control">
-                            <input class="no-resize form-control" ng-model="title" aria-invalid="false" aria-multiline="false" rows="1" ></input>
+                            <input class="no-resize form-control" ng-model="title" aria-invalid="false" aria-multiline="false" rows="1"></input>
                             <div class="mda-form-control-line"></div>
                             <label class="m0">Title</label>
-                        </div><span class="mda-form-msg right">Post your question title here</span>
+                        </div><span class="mda-form-msg right">Post your blog title here</span>
                     </div>
                     <span class="input-group-btn">
                     </span>
@@ -46,20 +46,9 @@
                 <div class="input-group mda-input-group">
                     <div class="mda-form-group">
                         <div class="mda-form-control">
-                            <input type="text" class="no-resize form-control" ng-model="selectedTags"></input>
+                            <textarea rows="15" cols="80" style="width: 80%"></textarea>
                             <div class="mda-form-control-line"></div>
-                            <label class="m0">Tags</label>
-                        </div><span class="mda-form-msg right">Post your tags here(split every tags with <label>Comma [,]</label>)</span>
-                    </div>
-                    <span class="input-group-btn">
-                    </span>
-                </div>
-                <div class="input-group mda-input-group">
-                    <div class="mda-form-group">
-                        <div class="mda-form-control">
-                        <textarea rows="15" cols="80" style="width: 80%"></textarea>
-                        <div class="mda-form-control-line"></div>
-                        <label class="m0">Content</label>
+                            <label class="m0">Content</label>
                         </div><span class="mda-form-msg right">Post your content here</span>
                     </div>
                     <span class="input-group-btn">

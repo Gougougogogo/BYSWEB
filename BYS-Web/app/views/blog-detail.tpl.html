@@ -1,0 +1,43 @@
+﻿<div class="modal-header">
+    <div class="media m0 pv">
+        <div ng-click="close()" class="pull-right"><sup><em class="ion-close-round text-muted icon-2x"></em></sup></div>
+        <div class="media-left"><img src="{{ blogContent.PublisherImg }}" alt="User" class="media-object img-circle thumb64" /></div>
+        <div class="media-body media-middle">
+            <h4 class="media-heading">{{ blogContent.Title }}</h4><span class="text-muted">{{ blogContent.PublisherName + '('+blogContent.PublisherEmail+')' }}</span>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <!-- START dropdown-->
+    <!--<div uib-dropdown="dropdown2" class="pull-right dropdown">
+        <button type="button" uib-dropdown-toggle="" class="btn btn-default btn-flat btn-flat-icon"><em class="ion-android-more-vertical"></em></button>
+        <ul role="menu" class="dropdown-menu md-dropdown-menu dropdown-menu-right">
+            <li><a href=""><em class="ion-star icon-fw"></em>Favorite</a></li>
+            <li><a href=""><em class="ion-ios-box icon-fw"></em>Archive</a></li>
+            <li><a href="" ng-click="mod.close()"><em class="ion-trash-a icon-fw"></em>Discard</a></li>
+        </ul>
+    </div>-->
+    <!-- END dropdown-->
+    <p class="text-muted">{{ blogContent.Date }}</p>
+    <div ng-bind-html="blogContent.Content|to_trusted">
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="text-left">
+        <p>Reply</p>
+    </div>
+    <div class="media m0 pv">
+        <div class="media-left"><a href="#"><img src="app/img/user/01.jpg" alt="User" class="media-object img-circle thumb32" /></a></div>
+        <div class="media-body media-middle">
+            <form action="">
+                <div class="mda-form-group">
+                    <div class="mda-form-control pt0">
+                        <textarea rows="3" aria-multiline="true" tabindex="0" aria-invalid="false" class="form-control"></textarea>
+                        <div class="mda-form-control-line"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <button ng-click="test()" class="btn btn-success">Send</button>
+</div>

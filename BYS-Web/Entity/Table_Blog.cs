@@ -12,14 +12,23 @@ namespace BYS_Web.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Table_OperationLog
+    public partial class Table_Blog
     {
-        public System.Guid ID { get; set; }
-        public System.DateTime Date { get; set; }
-        public System.Guid LogEntityID { get; set; }
-        public System.Guid UserID { get; set; }
+        public Table_Blog()
+        {
+            this.Table_BlogAttachments = new HashSet<Table_BlogAttachments>();
+        }
     
-        public virtual Table_LogEntity Table_LogEntity { get; set; }
+        public System.Guid ID { get; set; }
+        public int Status { get; set; }
+        public string Content { get; set; }
+        public System.DateTime Date { get; set; }
+        public System.Guid Publisher { get; set; }
+        public System.Guid BlogItemId { get; set; }
+        public string Title { get; set; }
+    
+        public virtual Table_BlogItem Table_BlogItem { get; set; }
         public virtual Table_User Table_User { get; set; }
+        public virtual ICollection<Table_BlogAttachments> Table_BlogAttachments { get; set; }
     }
 }

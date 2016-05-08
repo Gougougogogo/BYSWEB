@@ -1036,6 +1036,7 @@
             },
             'bbsDetail': {
                 files: [
+                    'vendor/layer/skin/layer.css',
                     'vendor/highlight/styles/tomorrow.css',
                     'app/js/bbsdetail.js',
                     'vendor/highlight/highlight.pack.js',
@@ -1045,17 +1046,41 @@
             },
             'bbsNewpost': {
                 files: [
+                    'vendor/layer/skin/layer.css',
                     'app/js/newpost.js',
                     'vendor/layer/layer.js'
                 ]
             },
             'bbsHome': {
                 files: [
+                    'vendor/layer/skin/layer.css',
                     'app/js/bbshome.js',
-                    'vendor/pagination/jquery.twbsPagination.min.js',
                     'vendor/layer/layer.js'
                 ]
             },
+            'blogHome': {
+                files: [
+                    'vendor/layer/skin/layer.css',
+                    'app/js/bloghome.js',
+                    'vendor/layer/layer.js'
+                ]
+            },
+            'blogDetail': {
+                files: [
+                    'vendor/highlight/styles/tomorrow.css',
+                    'vendor/layer/skin/layer.css',
+                    'vendor/highlight/highlight.pack.js',                    
+                    'app/js/blogdetail.js',
+                    'vendor/layer/layer.js'
+                ]
+            },
+            'blogPost': {
+                files: [
+                    'vendor/layer/skin/layer.css',
+                    'vendor/layer/layer.js',
+                    'app/js/blogPost.js'
+                ]
+            }
         });
 
 })();
@@ -1544,8 +1569,8 @@
     userRoute.$inject = ['Router'];
     function userRoute(Router) {
         Router.state('app.blog', {
-            url: '/bbs',
-            title: 'BBS',
+            url: '/blog',
+            title: 'Blog',
             abstract: true,
             template: '<div ui-view class="ng-fadeInLeftShort"></div>',
             require: ['modernizr', 'icons', 'ng-mfb', 'md-colors']
@@ -1553,9 +1578,21 @@
         .state('app.blog.home', {
             url: '/home',
             title: 'Home',
-            templateUrl: 'bbs-home.html',
-            require: ['bbsHome']
+            templateUrl: 'blog-home.html',
+            require: ['blogHome']
         })
+        .state('app.blog.detail', {
+            url: '/detail/:blogTypeId',
+            title: 'Detail',
+            templateUrl: 'blog-detail.html',
+            require: ['blogDetail']
+        })
+        .state('app.blog.newpost', {
+            url: '/newpost/:blogTypeId',
+            title: 'New blog',
+            templateUrl: 'blog-new.tpl.html',
+            require: ['blogPost', 'ui.tinymce', 'ngDropzone']
+        });
     }
 })();
 
