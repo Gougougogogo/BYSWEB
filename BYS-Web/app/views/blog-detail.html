@@ -1,0 +1,34 @@
+﻿<div ng-controller="blogDetailController">
+    <div class="container-overlap bg-indigo-500">
+        <div class="media m0 pv">
+            <div class="media-body media-middle">
+                <h4 class="media-heading">Blog list page</h4><span class="text-muted">List the latest blogs</span>
+            </div>
+        </div>
+    </div>
+    <div class="container container-lg">
+        <div class="card">
+            <div class="card-body">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" ng-click="publishNew()"><span class="ion-paper-airplane mr-sm"></span>New Blog</button>
+                </span>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-fixed va-middle">
+                    <tbody>
+                        <tr ng-click="openDetail(item.BlogId)" ng-repeat="item in blogItems">
+                            <td class="wd-xxs"><img src="{{ item.UserImage }}" alt="user" class="img-circle thumb32" /></td>
+                            <td class="text-ellipsis wd-sm">{{ item.UserName }}</td>
+                            <td class="text-ellipsis">{{ item.Title }}</td>
+                            <td class="text-ellipsis wd-sm">{{ item.PublishDate }} </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>       
+            <div class="card-body" ng-if="Items > itemCountPerPage">
+                <uib-pagination total-items="Items" items-per-page="itemCountPerPage" ng-model="currentPage" ng-change="getBlogItems()"></uib-pagination>
+            </div>     
+        </div>
+    </div>
+</div>

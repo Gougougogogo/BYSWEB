@@ -19,8 +19,8 @@
         border-radius: 50%;
         background-clip: padding-box;
     }
-
 </style>
+
 <div class="container-overlap bg-indigo-500 ng-scope">
     <div class="media m0 pv">
         <div class="media-body media-middle">
@@ -28,89 +28,85 @@
         </div>
     </div>
 </div>
-<div class="container-lg ng-scope" ng-controller="NewPostController">
-    <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-            <div class="card">
-                <div class="card-body">
-                    <form class="mt ng-pristine ng-valid" action="">
-                        <div class="input-group mda-input-group">
-                            <div class="mda-form-group">
-                                <div class="mda-form-control">
-                                    <input tabindex="0" class="no-resize form-control" ng-model="title" aria-invalid="false" aria-multiline="false" rows="1"/>
-                                    <div class="mda-form-control-line"></div>
-                                    <label class="m0">Title</label>
-                                </div><span class="mda-form-msg right">Post your question title here</span>
-                            </div>
-                            <span class="input-group-btn">
-                            </span>
-                        </div>
-                        <div class="input-group mda-input-group">
-                            <div class="mda-form-group">
-                                <div class="mda-form-control">
-                                    <input type="text" class="no-resize form-control" ng-model="selectedTags" />
-                                    <div class="mda-form-control-line"></div>
-                                    <label class="m0">Tags</label>
-                                </div><span class="mda-form-msg right">Post your tags here(split every tags with <label>Comma [,]</label>)</span>
-                            </div>
-                            <span class="input-group-btn">
-                            </span>
-                        </div>
-                        <div class="input-group mda-input-group">
-                            <div class="mda-form-group">
-                                <div class="mda-form-control">
-                                    <textarea id="elm1" name="elm1" rows="15" cols="80" style="width: 80%">{{ content }}</textarea>
-                                    <div class="mda-form-control-line"></div>
-                                    <label class="m0">Content</label>
-                                </div><span class="mda-form-msg right">Post your content here</span>
-                            </div>
-                            <span class="input-group-btn">
-                            </span>
-                        </div>
-                        <div class="input-group" style="width:100%">
-                            <label class="m0">Attachments</label>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="mda-form-group">
-                                        <div class="mda-form-control">
-                                            <div class="row">
-                                                <div class="col-sm-3 text-center">
-                                                    <div id="advancedDropzone" class="droppable-area">
-                                                        Drop Files Here
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                    <table class="table table-bordered table-striped" id="attachmentsList">
-                                                        <thead>
-                                                            <tr>
-                                                                <th width="1%" class="text-center">#</th>
-                                                                <th width="50%">Name</th>
-                                                                <th width="20%">Upload Progress</th>
-                                                                <th>Size</th>
-                                                                <th>Status</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td colspan="5">Files list will appear here</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div><span class="mda-form-msg right">drop your file here</span>
-                                    </div>
-                                    <span class="input-group-btn">
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group" style="width:100%">
-                            <button class="btn btn-primary btn-sm pull-right" type="button" ng-click="publish()">Publish</button>
-                        </div>
-                    </form>
+<div class="container container-lg" ng-controller="NewPostController">
+    <div class="card">
+        <div class="card-body">
+            <form class="mt ng-pristine ng-valid" action="">
+                <div class="input-group mda-input-group">
+                    <div class="mda-form-group">
+                        <div class="mda-form-control">
+                            <input class="no-resize form-control" ng-model="title" aria-invalid="false" aria-multiline="false" rows="1" ></input>
+                            <div class="mda-form-control-line"></div>
+                            <label class="m0">Title</label>
+                        </div><span class="mda-form-msg right">Post your question title here</span>
+                    </div>
+                    <span class="input-group-btn">
+                    </span>
                 </div>
-            </div>
+                <div class="input-group mda-input-group">
+                    <div class="mda-form-group">
+                        <div class="mda-form-control">
+                            <input type="text" class="no-resize form-control" ng-model="selectedTags"></input>
+                            <div class="mda-form-control-line"></div>
+                            <label class="m0">Tags</label>
+                        </div><span class="mda-form-msg right">Post your tags here(split every tags with <label>Comma [,]</label>)</span>
+                    </div>
+                    <span class="input-group-btn">
+                    </span>
+                </div>
+                <div class="input-group mda-input-group">
+                    <div class="mda-form-group">
+                        <div class="mda-form-control">
+                        <textarea rows="15" cols="80" style="width: 80%"></textarea>
+                        <div class="mda-form-control-line"></div>
+                        <label class="m0">Content</label>
+                        </div><span class="mda-form-msg right">Post your content here</span>
+                    </div>
+                    <span class="input-group-btn">
+                    </span>
+                </div>
+                <div class="input-group" style="width:100%">
+                    <label class="m0">Attachments</label>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="mda-form-group">
+                                <div class="mda-form-control">
+                                    <div class="row">
+                                        <div class="col-sm-3 text-center">
+                                            <div id="advancedDropzone" class="droppable-area">
+                                                Drop Files Here
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <table class="table table-bordered table-striped" id="attachmentsList">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="1%" class="text-center">#</th>
+                                                        <th width="50%">Name</th>
+                                                        <th width="20%">Upload Progress</th>
+                                                        <th>Size</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">Files list will appear here</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div><span class="mda-form-msg right">drop your file here</span>
+                            </div>
+                            <span class="input-group-btn">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group" style="width:100%">
+                    <button class="btn btn-primary btn-sm pull-right" type="button" ng-click="publish()">Publish</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

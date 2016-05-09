@@ -146,7 +146,7 @@
     'use strict';
 
     angular
-        .module('app.bbs', []);
+        .module('app.bbs', [ ]);
 })();
 
 (function() {
@@ -915,7 +915,6 @@
                         'vendor/tinymce/plugins/table/plugin.min.js',
                         'vendor/tinymce/plugins/paste/plugin.min.js',
                         'vendor/tinymce/plugins/spellchecker/plugin.min.js',                        
-                        'app/js/newpost.js'
                     ]   
             },
             'uiGmapgoogle-maps': {
@@ -1037,12 +1036,49 @@
             },
             'bbsDetail': {
                 files: [
-                    'app/js/bbsdetail.js'
+                    'vendor/layer/skin/layer.css',
+                    'vendor/highlight/styles/tomorrow.css',
+                    'app/js/bbsdetail.js',
+                    'vendor/highlight/highlight.pack.js',
+                    'vendor/pagination/jquery.twbsPagination.min.js',
+                    'vendor/layer/layer.js'
+                ]
+            },
+            'bbsNewpost': {
+                files: [
+                    'vendor/layer/skin/layer.css',
+                    'app/js/newpost.js',
+                    'vendor/layer/layer.js'
                 ]
             },
             'bbsHome': {
                 files: [
-                    'app/js/bbshome.js'
+                    'vendor/layer/skin/layer.css',
+                    'app/js/bbshome.js',
+                    'vendor/layer/layer.js'
+                ]
+            },
+            'blogHome': {
+                files: [
+                    'vendor/layer/skin/layer.css',
+                    'app/js/bloghome.js',
+                    'vendor/layer/layer.js'
+                ]
+            },
+            'blogDetail': {
+                files: [
+                    'vendor/highlight/styles/tomorrow.css',
+                    'vendor/layer/skin/layer.css',
+                    'vendor/highlight/highlight.pack.js',                    
+                    'app/js/blogdetail.js',
+                    'vendor/layer/layer.js'
+                ]
+            },
+            'blogPost': {
+                files: [
+                    'vendor/layer/skin/layer.css',
+                    'vendor/layer/layer.js',
+                    'app/js/blogPost.js'
                 ]
             }
         });
@@ -1206,9 +1242,9 @@
         .module('app.settings')
         .run(settingsRun);
 
-    settingsRun.$inject = ['$rootScope'];
+    settingsRun.$inject = ['$rootScope','$http'];
 
-    function settingsRun($rootScope) {
+    function settingsRun($rootScope,$http) {
 
         var themes = [
             'theme-1',
@@ -1240,14 +1276,27 @@
             header: {
                 menulink: 'menu-link-slide'
             },
+            userName: '',
+            userImg: 'app/img/user/01.jpg',
             footerHidden: false,
             viewAnimation: 'ng-fadeInLeftShort',
             theme: themes[0],
             currentTheme: 0
         };
 
-        $rootScope.themes = themes;
+        $http.get('../User/GetUserInfo',{
+            cache: false
+        }).success(function (e) {
+                $rootScope.app.userName = e.userName;
+                $rootScope.app.userImg = e.userImg;
+            
+            //layer.close(load);
+        }).error(function (data) {
+            layer.msg(data);
+            //layer.close(load);
+        });
 
+        $rootScope.themes = themes;
     }
 
 })();
@@ -1391,7 +1440,7 @@
 
         var menuItem = {
             name: 'Blog',
-            sref: 'blog',
+            sref: 'app.blog.home',
             order: 3,
             imgpath: 'app/img/icons/clipboard.svg'
         };
@@ -1493,7 +1542,7 @@
             url: '/newpost',
             title: 'NewQuestion',
             templateUrl: 'newpost.html',
-            require: ['ui.select', 'ui.tinymce', 'ngDropzone']
+            require: ['ui.select', 'ui.tinymce', 'ngDropzone', 'bbsNewpost']
         })
         .state('app.bbs.home', {
             url: '/home',
@@ -1505,10 +1554,46 @@
             url: '/detail/:bbsId',
             title: 'Detail',
             templateUrl: 'bbs-detail.html',
-            require: ['bbsDetail']
+            require: ['bbsDetail', 'ui.tinymce']
         });
     }
+})();
 
+(function () {
+    'use strict';
+
+    angular
+        .module('app.blog')
+        .run(userRoute);
+
+    userRoute.$inject = ['Router'];
+    function userRoute(Router) {
+        Router.state('app.blog', {
+            url: '/blog',
+            title: 'Blog',
+            abstract: true,
+            template: '<div ui-view class="ng-fadeInLeftShort"></div>',
+            require: ['modernizr', 'icons', 'ng-mfb', 'md-colors']
+        })
+        .state('app.blog.home', {
+            url: '/home',
+            title: 'Home',
+            templateUrl: 'blog-home.html',
+            require: ['blogHome']
+        })
+        .state('app.blog.detail', {
+            url: '/detail/:blogTypeId',
+            title: 'Detail',
+            templateUrl: 'blog-detail.html',
+            require: ['blogDetail']
+        })
+        .state('app.blog.newpost', {
+            url: '/newpost/:blogTypeId',
+            title: 'New blog',
+            templateUrl: 'blog-new.tpl.html',
+            require: ['blogPost', 'ui.tinymce', 'ngDropzone']
+        });
+    }
 })();
 
 (function() {

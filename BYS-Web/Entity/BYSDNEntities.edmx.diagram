@@ -19,6 +19,12 @@
         <AssociationConnector Association="BYSDNModel.FK_Table_OperationLog_Table_LogEntity" ManuallyRouted="false" />
         <AssociationConnector Association="BYSDNModel.FK_Table_OperationLog_Table_User" ManuallyRouted="false" />
         <AssociationConnector Association="BYSDNModel.FK_Table_Question_Table_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_Blog" Width="1.5" PointX="6" PointY="3.75" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_BlogItem" Width="1.5" PointX="3.75" PointY="2.125" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_Blog_Table_BlogItem" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_Blog_Table_User" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_BlogAttachments" Width="1.5" PointX="8.25" PointY="4.25" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_BlogAttachments_Table_Blog" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
