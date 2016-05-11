@@ -18,8 +18,7 @@ namespace BYS_Web.Controllers
         
         public ActionResult Registe()
         {
-            ViewBag.Name = User.Identity.Name;
-
+            ViewBag.Name = Request.LogonUserIdentity.Name;
             return View();
         }
 

@@ -143,7 +143,7 @@ function requestRegist()
             UserName : $('#username').val(),
             Sex: $("#sexSelect").val(),
             Comments: $("#Comments").val(),
-            imgPath: imgPath
+            imgPath: imgPath == '' ? '../app/img/user/01.jpg' : imgPath
         },
         success: function (e)
         {

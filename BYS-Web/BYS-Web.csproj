@@ -57,27 +57,69 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lucene\Lucene.Net.Contrib.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Routing" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Entity">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -95,6 +137,7 @@
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
       <Private>True</Private>
@@ -106,9 +149,11 @@
     </Reference>
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -1225,13 +1270,9 @@
     <Content Include="vendor\highlight\README.ru.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\.DS_Store" />
-    <Content Include="Content\css\fonts\.DS_Store" />
-    <Content Include="Content\css\fonts\elusive\.DS_Store" />
     <Content Include="Content\css\fonts\elusive\font\elusive.eot" />
     <Content Include="Content\css\fonts\elusive\font\elusive.ttf" />
     <Content Include="Content\css\fonts\elusive\font\elusive.woff" />
-    <Content Include="Content\css\fonts\fontawesome\.DS_Store" />
     <Content Include="Content\css\fonts\fontawesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\css\fonts\fontawesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\css\fonts\fontawesome\fonts\fontawesome-webfont.woff" />
@@ -1239,7 +1280,6 @@
     <Content Include="Content\css\fonts\glyphicons\glyphicons-halflings-regular.eot" />
     <Content Include="Content\css\fonts\glyphicons\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\css\fonts\glyphicons\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\css\fonts\linecons\.DS_Store" />
     <Content Include="Content\css\fonts\linecons\font\linecons.eot" />
     <Content Include="Content\css\fonts\linecons\font\linecons.ttf" />
     <Content Include="Content\css\fonts\linecons\font\linecons.woff" />
@@ -1248,12 +1288,10 @@
     <Content Include="Content\css\fonts\meteocons\font\meteocons.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\js\dropzone\.DS_Store" />
     <Content Include="Content\js\dropzone\css\stylus\basic.styl" />
     <Content Include="Content\js\dropzone\css\stylus\dropzone.styl" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\js\toastr\.DS_Store" />
     <Content Include="Content\js\toastr\toastr.less" />
     <Content Include="Content\js\toastr\toastr.min.js.map" />
     <Content Include="Content\js\toastr\toastr.scss" />
@@ -1262,7 +1300,7 @@
     <Content Include="Views\User\Registe.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\js\jquery-validate\.DS_Store" />
+    <None Include="Properties\PublishProfiles\Local File.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
