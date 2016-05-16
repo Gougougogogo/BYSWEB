@@ -48,14 +48,14 @@
             'app.router',
             'ngRoute',
             'ngAnimate',
-            'ngStorage',
-            'ngCookies',
+            //'ngStorage',
+            //'ngCookies',
             'ngMessages',
-            'pascalprecht.translate',
+            //'pascalprecht.translate',
             'ui.bootstrap',
             'cfp.loadingBar',
-            'ngSanitize',
-            'ngResource',
+            //'ngSanitize',
+            //'ngResource',
             'ui.utils',
         ]);
 })();
@@ -231,9 +231,9 @@
         .module('app.core')
         .config(coreConfig);
 
-    coreConfig.$inject = ['$controllerProvider', '$compileProvider', '$filterProvider', '$provide'];
+    coreConfig.$inject = ['$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$httpProvider'];
 
-    function coreConfig($controllerProvider, $compileProvider, $filterProvider, $provide) {
+    function coreConfig($controllerProvider, $compileProvider, $filterProvider, $provide, $httpProvider) {
 
         var core = angular.module('app.core');
         // registering components after bootstrap
@@ -245,6 +245,7 @@
         core.constant = $provide.constant;
         core.value = $provide.value;
 
+        $httpProvider.defaults.cache = false;
     }
 
 })();

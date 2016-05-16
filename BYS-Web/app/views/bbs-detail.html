@@ -11,6 +11,19 @@
         line-height:1.1em;
         font-size:16px;
     }
+
+    .attachments li > p {
+        font-size: 16px;
+    }
+
+    .attachments li > span {
+        font-size: 20px;
+    }
+
+    .list-unstyled > li{
+        cursor:pointer;
+        border-right: 2px solid #eee;
+    } 
 </style>
 <div ng-controller="bbsDetailController" ng-init="init()">
     <div class="container-overlap bg-indigo-500">
@@ -43,12 +56,23 @@
                 <!-- END dropdown-->
                 <p class="text-muted">{{ detail.Date }}</p>
                 <div id="bbsContent" ng-bind-html="detail.Content|to_trusted">
-
+                    
                 </div>
+            </div>
+            <div class="modal-footer" ng-show="showAttachments">
+                <h6 class="text-left">Attachments</h6>
+                <ul class="attachments list-unstyled list-inline">
+                    <li ng-repeat="attach in attachments" style="float:left">
+                        <a ng-href="{{'../BBS/DownloadFile/' + attach.ID }}">
+                            <span class="ion-ios-cloud-download-outline"></span>
+                            <p style="display:inline">{{ getFileName(attach.Name) + ' (' + attach.Size + ')' }}</p>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
 
-        <div class="card" ng-if="showReply">
+        <div class="card" ng-show="showReply">
             <div class="card-body">
                 <div class="text-left">
                     <h5>Replys</h5>
@@ -68,7 +92,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <ul id="pagination" class="pagination"></ul>
+                        <uib-pagination total-items="replyItemCount" items-per-page="itemCountPerpage" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
                     </div>
                 </div>
             </div>

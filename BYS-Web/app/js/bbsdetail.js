@@ -1,72 +1,101 @@
-﻿angular.module('app.bbs').controller('bbsDetailController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+﻿angular.module('app.bbs').controller('bbsDetailController', ['$scope', '$http', '$stateParams', '$timeout', function ($scope, $http, $stateParams, $timeout) {
     $scope.url = $stateParams.bbsId;
 
     $scope.detail;
 
     $scope.replys = [];
+    $scope.attachments = [];
+
+    $scope.replyItemCount = 1;
+    $scope.itemCountPerpage = 10;
+    $scope.currentPage = 1;
 
     $scope.init = function () {
-        var load = layer.load(0);
-        $.ajax({
-            url: "../BBS/GetBBSDetail",
-            method: 'Get',
-            dataType: 'json',
-            cache: false,
-            data: {
-                ID: $stateParams.bbsId
-            },
-            success: function (e) {
-                if (e.success) {
-                    $scope.detail = e.retData;
-                    $scope.$apply();
-                    $('pre code').each(function (i, block) {
-                        hljs.highlightBlock(block);
-                    });
-                }
-                else {
-                    layer.msg(e.retData);
-                }
-                layer.close(load);
-            },
-            error: function (e) {
-                layer.msg(e.retData);
-                layer.close(load);
-            }
-        });
-
-        $.ajax({
-            url: "../BBS/GetReplyInfos",
-            type: 'Get',
-            data: { Id: $stateParams.bbsId },
-            cache: false,
-            success: function (e) {
-                if (e.success) {
-                    if (e.retData > 0) {
-                        $scope.showReply = true;
-                        $scope.$apply();
-                        pageCount = Math.floor(e.retData / 10);
-                        pageCount = e.retData % 10 == 0 ? pageCount : pageCount + 1;
-
-                        $('#pagination').twbsPagination({
-                            totalPages: pageCount,
-                            visiblePages: 5,
-                            onPageClick: function (event, page) {
-                                currentPage = page;
-                                getReply(page);
-                            }
-                        });
-                    }
-                }
-            },
-            error: function (e) {
-                layer.msg(e.retData);
-            }
-        });
+        getDetailBody();
+        getReplyInofs();
+        getAttachmentsInofs();
     };
 
     $scope.showReply = false;
+    $scope.showAttachments = false;
 
-    var currentPage = 1;
+    $scope.pageChanged = function () {
+        getReply($scope.currentPage);
+    }
+
+    $scope.getFileName = function (inputs) {
+        var index = inputs.indexOf("%%");
+        var result = '';
+        if (index != -1) {
+            for (var i = index + 2; i < inputs.length; i++) {
+                result += inputs[i];
+            }
+        }
+        return result;
+    }
+
+    function getDetailBody() {
+        var load = layer.load(0);
+        $http.get('../BBS/GetBBSDetail', {
+            cache: false,
+            params: {
+                ID: $stateParams.bbsId
+            }
+        }).success(function (e) {
+            if (e.success) {
+                $scope.detail = e.retData;
+                $timeout(function () {
+                    $('pre code').each(function (i, block) {
+                        hljs.highlightBlock(block);
+                    });
+                }, 500);
+            }
+            else {
+                layer.msg(e.retData);
+            }
+            layer.close(load);
+        }).error(function (e) {
+            layer.msg(e.retData);
+            layer.close(load);
+        });
+    }
+
+    function getReplyInofs() {
+        $http.get('../BBS/GetReplyInfos', {
+            cache: false,
+            params: {
+                ID: $stateParams.bbsId
+            }
+        }).success(function (e) {
+            if (e.success) {
+                if (e.retData > 0) {
+                    $scope.showReply = true;
+                    $scope.replyItemCount = e.retData;
+                    getReply(1);
+                }
+            }
+        }).error(function (e) {
+            layer.msg(e.retData);
+        });
+    }
+
+    function getAttachmentsInofs() {
+        $http.get('../BBS/GetAttachments', {
+            cache: false,
+            params: {
+                Id: $stateParams.bbsId
+            }
+        }).success(function (e) {
+            if (e.success) {
+                if (e.retData.length > 0) {
+                    $scope.showAttachments = true;
+                    $scope.attachments = e.retData;
+                }
+            }
+        }).error(function (e) {
+            layer.msg(e.retData);
+        });
+    }
 
     function initTinymce() {
         tinymce.init({
@@ -155,28 +184,28 @@
     }
 
     function getReply(page) {
-        $.ajax({
-            url: "../BBS/GetReplyDetails",
-            type: 'Get',
-            data: { Id: $stateParams.bbsId, Page: currentPage },
+
+        $http.get('../BBS/GetReplyDetails', {
             cache: false,
-            success: function (e) {
-                if (e.success) {
-                    $scope.replys = e.retData;
-                    $scope.$apply();
+            params: {
+                Id: $stateParams.bbsId,
+                Page: page
+            }
+        }).success(function (e) {
+            if (e.success) {
+                $scope.replys = e.retData;
+                $timeout(function () {
                     $('pre code').each(function (i, block) {
                         hljs.highlightBlock(block);
                     });
-                }
-                else {
-                    layer.msg(e.retData);
-                }
-            },
-            error: function (e) {
+                }, 500);
+            }
+            else {
                 layer.msg(e.retData);
             }
+        }).error(function (e) {
+            layer.msg(e.retData);
         });
-
     }
 
     initTinymce();

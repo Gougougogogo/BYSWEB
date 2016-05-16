@@ -3,40 +3,36 @@
 
     $scope.currentPage = 1;
     $scope.pageCount = 1;
+    $scope.itemperPage = 10;
+    $scope.searchPatten = '';
 
     function getBBSContent(page) {
         var load = layer.load(0);
-        $.ajax({
-            url: "../BBS/RequestQuestionList",
-            method: 'Get',
-            dataType: 'json',
+        $http.get('../BBS/RequestQuestionList', {
             cache: false,
-            data: {
+            params: {
                 page: page
-            },
-            success: function (e) {
-                if (e.success) {
+            }
+        }).success(function (e) {
+            if (e.success) {
+                if (e.retData) {
                     $scope.questions = e.retData;
-                    $scope.$apply();
                 }
-                else {
-                    layer.msg(e.retData);
-                }
-                layer.close(load);
-            },
-            error: function (e) {
-                layer.msg(e.retData);
                 layer.close(load);
             }
+        }).error(function (e) {
+            layer.msg(e.retData);
+            layer.close(load);
         });
     }
-    //getBBSContent(1);
+    
     $scope.init = function () {
         getBBSContent(1);
 
         $http.get('../BBS/GetBBSQuestionPageCount', {
+            cache :false,
             params: {
-                pagecount : 10
+                pagecount: $scope.itemperPage,
             }
         }).success(function (e) {
             if (e.success) {
@@ -50,6 +46,21 @@
     }
 
     $scope.init();
+
+    $scope.search = function () {
+        //$http.get('../BBS/GetSearchResult', {
+        //    cache : false,
+        //    params: {
+        //        keyword: $scope.searchPatten
+        //    }
+        //}).success(function (e) {
+        //    if (e.success) {
+        //        var a = e.retData;
+        //    }
+        //}).error(function (e) {
+        //    layer.msg(e.retData);
+        //});
+    };
 
     $scope.gotoDetail = function (id) {
         $state.go('app.bbs.detail', { bbsId: id });

@@ -1,4 +1,5 @@
-﻿using BYS_Web.Entity;
+﻿using BYS_Web.Common;
+using BYS_Web.Entity;
 using BYSDN.Common;
 using BYSDN.Lucene;
 using BYSDN.Models;
@@ -14,6 +15,7 @@ using System.Web.Mvc;
 
 namespace BYS_Web.Controllers
 {
+    [NoCache]
     public class BBSController : Controller
     {
         BYSDNEntities entities = new BYSDNEntities();
@@ -29,9 +31,8 @@ namespace BYS_Web.Controllers
         {
             int bbsCount = (from a in entities.Table_Question
                             select a.ID).Count();
-            int pageCount = (bbsCount / pagecount) + (bbsCount % pagecount > 0 ? 1 : 0);
 
-            return Json(new { success = true, retData = pageCount }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, retData = bbsCount }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetBBSDetail(string ID)

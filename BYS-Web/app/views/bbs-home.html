@@ -13,12 +13,12 @@
                     <div class="input-group mda-input-group">
                         <div class="mda-form-group">
                             <div class="mda-form-control">
-                                <input tabindex="0" class="no-resize form-control" aria-invalid="false" aria-multiline="false" rows="1"></input>
+                                <input tabindex="0" ng-model="searchPatten" class="no-resize form-control" aria-invalid="false" aria-multiline="false" rows="1"></input>
                                 <div class="mda-form-control-line"></div>
                                 <label class="m0">Search for an answer?</label>
                             </div><span class="mda-form-msg right">Post your keywords here</span>
                         </div><span class="input-group-btn">
-                            <button class="btn btn-flat btn-success btn-circle" type="button"><em class="ion-checkmark-round"></em></button>
+                            <button class="btn btn-flat btn-success btn-circle" ng-click="search()" type="button"><em class="ion-checkmark-round"></em></button>
                         </span>
                     </div>
                 </form>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <uib-pagination total-items="pageCount" items-per-page="1" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+                <uib-pagination total-items="pageCount" items-per-page="itemperPage" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
             </div>
         </div>
     </div>

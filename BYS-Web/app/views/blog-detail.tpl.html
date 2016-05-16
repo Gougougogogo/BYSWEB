@@ -22,6 +22,17 @@
     <div ng-bind-html="blogContent.Content|to_trusted">
     </div>
 </div>
+<div class="modal-footer" ng-show="showAttachments">
+    <h6 class="text-left">Attachments</h6>
+    <ul class="attachments list-unstyled list-inline">
+        <li ng-repeat="attach in attachments" style="float:left">
+            <a ng-href="{{'../Blog/DownloadFile/' + attach.ID }}">
+                <span class="ion-ios-cloud-download-outline"></span>
+                <p style="display:inline">{{ getFileName(attach.Name) + ' (' + attach.Size + ')' }}</p>
+            </a>
+        </li>
+    </ul>
+</div>
 <div class="modal-footer">
     <div class="text-left">
         <p>Reply</p>

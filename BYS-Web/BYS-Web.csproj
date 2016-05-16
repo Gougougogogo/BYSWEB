@@ -178,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\MIMETypeHelper.cs" />
+    <Compile Include="Common\NoCacheAttribute.cs" />
     <Compile Include="Controllers\BBSController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\UserController.cs" />

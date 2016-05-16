@@ -1,10 +1,12 @@
 ﻿using BYS_Web.Entity;
+using BYSDN.Common;
 using BYSDN.Lucene;
 using BYSDN.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -35,6 +37,38 @@ namespace BYS_Web.Controllers
 
             return Json(new { success = true, retData = result }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetAttachments(string Id)
+        {
+            Guid ID = new Guid(Id);
+
+            var result = (from a in entities.Table_BlogAttachments
+                          where a.BlogID == ID
+                          select new
+                          {
+                              ID = a.ID,
+                              Name = a.FileName,
+                              Size = a.FileSize
+                          }).ToList();
+
+            return Json(new { success = true, retData = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DownloadFile(string Id)
+        {
+            Guid ID = new Guid(Id);
+
+            var fileName = (from a in entities.Table_BlogAttachments
+                            where a.ID == ID
+                            select a.FileName).FirstOrDefault();
+
+            var path = Path.Combine(Server.MapPath("~/Attachments/"), fileName);
+
+            var outPutName = path.Split('%')[2];
+
+            return File(path, MIMETypeHelper.GetMimeType(Path.GetExtension(path)), Server.UrlPathEncode(outPutName));
+        }
+
 
         [HttpPost]
         public JsonResult RequestPublish()

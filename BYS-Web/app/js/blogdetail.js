@@ -75,6 +75,8 @@
 angular.module('app.blog').controller('blogDetailDialogController', ['$uibModalInstance', 'data', '$http', '$scope', '$timeout', function ($uibModalInstance, data, $http, $scope, $timeout) {
 
     $scope.blogContent;
+    $scope.showAttachments = false;
+    $scope.attachments;
 
     function hightLight() {
         $('pre code').each(function (i, block) {
@@ -96,15 +98,41 @@ angular.module('app.blog').controller('blogDetailDialogController', ['$uibModalI
         });
     }
 
+    function getAttachments() {
+        $http.get('../Blog/GetAttachments', {
+            cache: false,
+            params: {
+                Id: data.blogId
+            }
+        }).success(function (e) {
+            if (e.success) {
+                if (e.retData.length > 0) {
+                    $scope.showAttachments = true;
+                    $scope.attachments = e.retData;
+                }
+            }
+        }).error(function (e) {
+            layer.msg(e.retData);
+        });
+    }
+
+    getAttachments();
     getContent();
     
+    $scope.getFileName = function (inputs) {
+        var index = inputs.indexOf("%%");
+        var result = '';
+        if (index != -1) {
+            for (var i = index + 2; i < inputs.length; i++) {
+                result += inputs[i];
+            }
+        }
+        return result;
+    }
+
     $scope.close = function () {
         $uibModalInstance.dismiss();
     };
-
-    $scope.test = function () {
-        hightLight();
-    }
 }])
 .filter(
 'to_trusted', ['$sce', function ($sce) {
