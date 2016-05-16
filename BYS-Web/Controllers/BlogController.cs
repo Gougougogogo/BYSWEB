@@ -1,4 +1,5 @@
-﻿using BYS_Web.Entity;
+﻿using BYS_Web.Common;
+using BYS_Web.Entity;
 using BYSDN.Common;
 using BYSDN.Lucene;
 using BYSDN.Models;
@@ -14,6 +15,7 @@ using System.Web.Mvc;
 
 namespace BYS_Web.Controllers
 {
+    [NoCache]
     public class BlogController : Controller
     {
         //
