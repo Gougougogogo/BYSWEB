@@ -1,7 +1,35 @@
-﻿<div class="modal-header">
+﻿<style>
+    .reply-card {
+        margin-top:10px;
+        border: 1px solid #eee;
+        padding: 10px 10px;
+    }
+
+    .reply-body {
+        padding: 0px 10px;
+        padding-bottom: 5px;
+    }
+
+    .reply-inner {
+        border: 1px solid #eee;
+        padding: 10px 20px;
+    }
+
+    .reply-inner-body {
+        border-bottom: 1px solid #eee;
+        padding: 5px 0px;
+    }
+
+    .reply-footer {
+        border-top: 1px solid #eee;
+        padding: 5px 10px;
+        padding-bottom:0px;
+    }
+</style>
+<div class="modal-header">
     <div class="media m0 pv">
         <div ng-click="close()" class="pull-right"><sup><em class="ion-close-round text-muted icon-2x"></em></sup></div>
-        <div class="media-left"><img src="{{ blogContent.PublisherImg }}" alt="User" class="media-object img-circle thumb64" /></div>
+        <div class="media-left"><img ng-src="{{ blogContent.PublisherImg }}" alt="User" class="media-object img-circle thumb64" /></div>
         <div class="media-body media-middle">
             <h4 class="media-heading">{{ blogContent.Title }}</h4><span class="text-muted">{{ blogContent.PublisherName + '('+blogContent.PublisherEmail+')' }}</span>
         </div>
@@ -33,22 +61,71 @@
         </li>
     </ul>
 </div>
+<div class="modal-footer" ng-show="replyList.length > 0">
+    <div class="text-left">
+        <p class="text-bold">Replys</p>
+    </div>
+    <div class="reply-card text-left" ng-repeat="item in replyList">
+        <div class="reply-body">
+            <div class="media m0">
+                <div class="media-left"><img class="media-object img-circle thumb32" alt="User" src="{{ item.UserImg }}"></div>
+                <div class="media-body media-middle pt-sm">
+                    <small class="text-muted"><span>{{ item.UserName + ' ('+ item.UserEmail +')'}}</span></small>
+                    <p class="media-heading m0">{{ item.ReplyContent }}</p>
+                </div>
+                <div class="reply-inner" ng-show="item.SubReply.length > 0">
+                    <div class="media m0 reply-inner-body" ng-repeat="subitem in item.SubReply">
+                        <div class="media-left"><img class="media-object img-circle thumb32" alt="User" src="{{ subitem.UserImg }}"></div>
+                        <div class="media-body media-middle pt-sm">
+                            <small class="text-muted"><span>{{ subitem.UserName + ' ('+ subitem.UserEmail +')'}}</span></small>
+                            <p class="media-heading m0">{{ subitem.ReplyContent }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="reply-footer">
+            <div uib-collapse="item.IsCollapsed">
+                <p>Reply</p>
+                <div class="media m0 pv">
+                    <div class="media-left"><a href="#"><img src="{{ ownUserImg }}" alt="User" class="media-object img-circle thumb32" /></a></div>
+                    <div class="media-body media-middle">
+                        <form action="">
+                            <div class="mda-form-group">
+                                <div class="mda-form-control pt0">
+                                    <textarea ng-model="item.newReplyContent" rows="3" aria-multiline="true" tabindex="0" aria-invalid="false" class="form-control"></textarea>
+                                    <div class="mda-form-control-line"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="media-right">
+                        <button class="btn btn-primary btn-circle" ng-click="requestReplyOther(item)"><span class="ion-checkmark-round"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="reply-footer">
+            <button class="btn btn-primary btn-flat btn-sm" ng-click="replyOther(item)">Reply</button>
+        </div>
+    </div>
+    </div>
 <div class="modal-footer">
     <div class="text-left">
         <p>Reply</p>
     </div>
     <div class="media m0 pv">
-        <div class="media-left"><a href="#"><img src="app/img/user/01.jpg" alt="User" class="media-object img-circle thumb32" /></a></div>
+        <div class="media-left"><a href="#"><img src="{{ ownUserImg }}" alt="User" class="media-object img-circle thumb32" /></a></div>
         <div class="media-body media-middle">
             <form action="">
                 <div class="mda-form-group">
                     <div class="mda-form-control pt0">
-                        <textarea rows="3" aria-multiline="true" tabindex="0" aria-invalid="false" class="form-control"></textarea>
+                        <textarea id="reply" rows="3" aria-multiline="true" tabindex="0" aria-invalid="false" class="form-control"></textarea>
                         <div class="mda-form-control-line"></div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <button ng-click="test()" class="btn btn-success">Send</button>
+    <button ng-click="replyOwner()" class="btn btn-success">Reply</button>
 </div>

@@ -71,6 +71,89 @@ namespace BYS_Web.Controllers
             return File(path, MIMETypeHelper.GetMimeType(Path.GetExtension(path)), Server.UrlPathEncode(outPutName));
         }
 
+        [HttpPost]
+        public JsonResult SubmitReply(string id, string content) 
+        {
+            Table_User user = (from a in entities.Table_User
+                                   where a.Name == Request.LogonUserIdentity.Name
+                                   select a).FirstOrDefault();
+            Table_BlogReply reply = new Table_BlogReply();
+            if (user != null)
+            {                
+                reply.BlogID = new Guid(id);
+                reply.Content = content;
+                reply.Publisher = user.ID;
+                reply.Date = DateTime.Now.ToUniversalTime();
+                reply.ID = Guid.NewGuid();
+                entities.Table_BlogReply.Add(reply);
+                entities.SaveChanges();
+            }
+
+            return Json(new { success = true, retData = reply.ID }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetBlogReplys(Guid id, int Page) 
+        {
+            int offSet = (Page - 1) * 10;
+
+            int i = 0,j = 0;
+
+            List<BlogReplyModel> reply = new List<BlogReplyModel>();
+
+            //var result = (from a in entities.Table_BlogReply
+            //              where a.BlogID == id
+            //              orderby a.Date ascending
+            //              select a).Skip(offSet).Take(10).ToList();
+
+            var result = (from a in entities.Table_BlogReply
+                          where a.BlogID == id
+                          orderby a.Date ascending
+                          select a).ToList();
+
+            foreach (var obj in result)
+            {
+                j = 1;
+                BlogReplyModel re = new BlogReplyModel();
+                re.Id = obj.ID;
+                re.Order = offSet + i + 1;
+                re.ReplyContent = obj.Content;
+                re.UserEmail = obj.Table_User.Name + "@Microsoft.com";
+                re.UserImg = obj.Table_User.Photo;
+                re.UserName = obj.Table_User.Name;
+                re.SubReply = obj.Table_SubBlogReply.AsEnumerable().OrderBy(c=>c.Date).Select(C=> new ReplyDetailsModel(){
+                    Order = j++,
+                    ReplyContent = C.Content,
+                    UserEmail = C.Table_User.Name + "@Microsoft.com",
+                    UserImg = C.Table_User.Photo,
+                    UserName = C.Table_User.Name
+                }).ToList();
+
+                reply.Add(re);
+                i++;
+            }
+
+            return Json(new { success = true, retData = reply }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SubmitOtherReply(string ReplyId, string content)
+        {
+            Table_User user = (from a in entities.Table_User
+                               where a.Name == Request.LogonUserIdentity.Name
+                               select a).FirstOrDefault();
+            Table_SubBlogReply reply = new Table_SubBlogReply();
+            if (user != null)
+            {
+                reply.ReplyID = new Guid(ReplyId);
+                reply.Content = content;
+                reply.Publisher = user.ID;
+                reply.Date = DateTime.Now.ToUniversalTime();
+                reply.ID = Guid.NewGuid();
+                entities.Table_SubBlogReply.Add(reply);
+                entities.SaveChanges();
+            }
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public JsonResult RequestPublish()

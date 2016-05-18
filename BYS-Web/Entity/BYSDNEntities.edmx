@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BYSDNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BYSDNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Table_Answer">
           <Key>
             <PropertyRef Name="ID" />
@@ -53,6 +53,16 @@
           <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="2047" Nullable="false" />
         </EntityType>
+        <EntityType Name="Table_BlogReply">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BlogID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Publisher" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Table_LogEntity">
           <Key>
             <PropertyRef Name="ID" />
@@ -89,6 +99,16 @@
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Publisher" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table_SubBlogReply">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReplyID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Publisher" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Table_User">
           <Key>
@@ -174,6 +194,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_BlogReply_Table_Blog">
+          <End Role="Table_Blog" Type="Self.Table_Blog" Multiplicity="1" />
+          <End Role="Table_BlogReply" Type="Self.Table_BlogReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Blog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_BlogReply">
+              <PropertyRef Name="BlogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_BlogReply_Table_User">
+          <End Role="Table_User" Type="Self.Table_User" Multiplicity="1" />
+          <End Role="Table_BlogReply" Type="Self.Table_BlogReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_BlogReply">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Table_LogEntity_Table_OperationType">
           <End Role="Table_OperationType" Type="Self.Table_OperationType" Multiplicity="1" />
           <End Role="Table_LogEntity" Type="Self.Table_LogEntity" Multiplicity="*" />
@@ -222,16 +266,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_SubBlogReply_Table_BlogReply">
+          <End Role="Table_BlogReply" Type="Self.Table_BlogReply" Multiplicity="1" />
+          <End Role="Table_SubBlogReply" Type="Self.Table_SubBlogReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_BlogReply">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_SubBlogReply">
+              <PropertyRef Name="ReplyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_SubBlogReply_Table_User">
+          <End Role="Table_User" Type="Self.Table_User" Multiplicity="1" />
+          <End Role="Table_SubBlogReply" Type="Self.Table_SubBlogReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_SubBlogReply">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BYSDNModelStoreContainer">
           <EntitySet Name="Table_Answer" EntityType="Self.Table_Answer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_Attachments" EntityType="Self.Table_Attachments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_Blog" EntityType="Self.Table_Blog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_BlogAttachments" EntityType="Self.Table_BlogAttachments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_BlogItem" EntityType="Self.Table_BlogItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_BlogReply" EntityType="Self.Table_BlogReply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_LogEntity" EntityType="Self.Table_LogEntity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_OperationLog" EntityType="Self.Table_OperationLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_OperationType" EntityType="Self.Table_OperationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_Question" EntityType="Self.Table_Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_SubBlogReply" EntityType="Self.Table_SubBlogReply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_User" EntityType="Self.Table_User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Table_Answer_Table_Question" Association="Self.FK_Table_Answer_Table_Question">
             <End Role="Table_Question" EntitySet="Table_Question" />
@@ -257,6 +327,14 @@
             <End Role="Table_Blog" EntitySet="Table_Blog" />
             <End Role="Table_BlogAttachments" EntitySet="Table_BlogAttachments" />
           </AssociationSet>
+          <AssociationSet Name="FK_Table_BlogReply_Table_Blog" Association="Self.FK_Table_BlogReply_Table_Blog">
+            <End Role="Table_Blog" EntitySet="Table_Blog" />
+            <End Role="Table_BlogReply" EntitySet="Table_BlogReply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_BlogReply_Table_User" Association="Self.FK_Table_BlogReply_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_BlogReply" EntitySet="Table_BlogReply" />
+          </AssociationSet>
           <AssociationSet Name="FK_Table_LogEntity_Table_OperationType" Association="Self.FK_Table_LogEntity_Table_OperationType">
             <End Role="Table_OperationType" EntitySet="Table_OperationType" />
             <End Role="Table_LogEntity" EntitySet="Table_LogEntity" />
@@ -272,6 +350,14 @@
           <AssociationSet Name="FK_Table_Question_Table_User" Association="Self.FK_Table_Question_Table_User">
             <End Role="Table_User" EntitySet="Table_User" />
             <End Role="Table_Question" EntitySet="Table_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_SubBlogReply_Table_BlogReply" Association="Self.FK_Table_SubBlogReply_Table_BlogReply">
+            <End Role="Table_BlogReply" EntitySet="Table_BlogReply" />
+            <End Role="Table_SubBlogReply" EntitySet="Table_SubBlogReply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_SubBlogReply_Table_User" Association="Self.FK_Table_SubBlogReply_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_SubBlogReply" EntitySet="Table_SubBlogReply" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -360,6 +446,8 @@
           <NavigationProperty Name="Table_OperationLog" Relationship="Self.FK_Table_OperationLog_Table_User" FromRole="Table_User" ToRole="Table_OperationLog" />
           <NavigationProperty Name="Table_Question" Relationship="Self.FK_Table_Question_Table_User" FromRole="Table_User" ToRole="Table_Question" />
           <NavigationProperty Name="Table_Blog" Relationship="BYSDNModel.FK_Table_Blog_Table_User" FromRole="Table_User" ToRole="Table_Blog" />
+          <NavigationProperty Name="Table_BlogReply" Relationship="BYSDNModel.FK_Table_BlogReply_Table_User" FromRole="Table_User" ToRole="Table_BlogReply" />
+          <NavigationProperty Name="Table_SubBlogReply" Relationship="BYSDNModel.FK_Table_SubBlogReply_Table_User" FromRole="Table_User" ToRole="Table_SubBlogReply" />
         </EntityType>
         <Association Name="FK_Table_Answer_Table_Question">
           <End Role="Table_Question" Type="Self.Table_Question" Multiplicity="1" />
@@ -496,6 +584,24 @@
             <End Role="Table_Blog" EntitySet="Table_Blog" />
             <End Role="Table_BlogAttachments" EntitySet="Table_BlogAttachments" />
           </AssociationSet>
+          <EntitySet Name="Table_BlogReply" EntityType="BYSDNModel.Table_BlogReply" />
+          <EntitySet Name="Table_SubBlogReply" EntityType="BYSDNModel.Table_SubBlogReply" />
+          <AssociationSet Name="FK_Table_BlogReply_Table_Blog" Association="BYSDNModel.FK_Table_BlogReply_Table_Blog">
+            <End Role="Table_Blog" EntitySet="Table_Blog" />
+            <End Role="Table_BlogReply" EntitySet="Table_BlogReply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_BlogReply_Table_User" Association="BYSDNModel.FK_Table_BlogReply_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_BlogReply" EntitySet="Table_BlogReply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_SubBlogReply_Table_BlogReply" Association="BYSDNModel.FK_Table_SubBlogReply_Table_BlogReply">
+            <End Role="Table_BlogReply" EntitySet="Table_BlogReply" />
+            <End Role="Table_SubBlogReply" EntitySet="Table_SubBlogReply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_SubBlogReply_Table_User" Association="BYSDNModel.FK_Table_SubBlogReply_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_SubBlogReply" EntitySet="Table_SubBlogReply" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Table_Blog">
           <Key>
@@ -511,6 +617,7 @@
           <NavigationProperty Name="Table_User" Relationship="BYSDNModel.FK_Table_Blog_Table_User" FromRole="Table_Blog" ToRole="Table_User" />
           <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Table_BlogAttachments" Relationship="BYSDNModel.FK_Table_BlogAttachments_Table_Blog" FromRole="Table_Blog" ToRole="Table_BlogAttachments" />
+          <NavigationProperty Name="Table_BlogReply" Relationship="BYSDNModel.FK_Table_BlogReply_Table_Blog" FromRole="Table_Blog" ToRole="Table_BlogReply" />
         </EntityType>
         <EntityType Name="Table_BlogItem">
           <Key>
@@ -564,6 +671,79 @@
             </Principal>
             <Dependent Role="Table_BlogAttachments">
               <PropertyRef Name="BlogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Table_BlogReply">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="BlogID" Type="Guid" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Publisher" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Table_Blog" Relationship="BYSDNModel.FK_Table_BlogReply_Table_Blog" FromRole="Table_BlogReply" ToRole="Table_Blog" />
+          <NavigationProperty Name="Table_User" Relationship="BYSDNModel.FK_Table_BlogReply_Table_User" FromRole="Table_BlogReply" ToRole="Table_User" />
+          <NavigationProperty Name="Table_SubBlogReply" Relationship="BYSDNModel.FK_Table_SubBlogReply_Table_BlogReply" FromRole="Table_BlogReply" ToRole="Table_SubBlogReply" />
+        </EntityType>
+        <EntityType Name="Table_SubBlogReply">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ReplyID" Type="Guid" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Publisher" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Table_BlogReply" Relationship="BYSDNModel.FK_Table_SubBlogReply_Table_BlogReply" FromRole="Table_SubBlogReply" ToRole="Table_BlogReply" />
+          <NavigationProperty Name="Table_User" Relationship="BYSDNModel.FK_Table_SubBlogReply_Table_User" FromRole="Table_SubBlogReply" ToRole="Table_User" />
+        </EntityType>
+        <Association Name="FK_Table_BlogReply_Table_Blog">
+          <End Type="BYSDNModel.Table_Blog" Role="Table_Blog" Multiplicity="1" />
+          <End Type="BYSDNModel.Table_BlogReply" Role="Table_BlogReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Blog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_BlogReply">
+              <PropertyRef Name="BlogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_BlogReply_Table_User">
+          <End Type="BYSDNModel.Table_User" Role="Table_User" Multiplicity="1" />
+          <End Type="BYSDNModel.Table_BlogReply" Role="Table_BlogReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_BlogReply">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_SubBlogReply_Table_BlogReply">
+          <End Type="BYSDNModel.Table_BlogReply" Role="Table_BlogReply" Multiplicity="1" />
+          <End Type="BYSDNModel.Table_SubBlogReply" Role="Table_SubBlogReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_BlogReply">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_SubBlogReply">
+              <PropertyRef Name="ReplyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_SubBlogReply_Table_User">
+          <End Type="BYSDNModel.Table_User" Role="Table_User" Multiplicity="1" />
+          <End Type="BYSDNModel.Table_SubBlogReply" Role="Table_SubBlogReply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_SubBlogReply">
+              <PropertyRef Name="Publisher" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -676,6 +856,28 @@
                 <ScalarProperty Name="FileSize" ColumnName="FileSize" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="BlogID" ColumnName="BlogID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_BlogReply">
+            <EntityTypeMapping TypeName="BYSDNModel.Table_BlogReply">
+              <MappingFragment StoreEntitySet="Table_BlogReply">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="BlogID" ColumnName="BlogID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_SubBlogReply">
+            <EntityTypeMapping TypeName="BYSDNModel.Table_SubBlogReply">
+              <MappingFragment StoreEntitySet="Table_SubBlogReply">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ReplyID" ColumnName="ReplyID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

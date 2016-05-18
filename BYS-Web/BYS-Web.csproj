@@ -207,6 +207,12 @@
     <Compile Include="Entity\Table_BlogItem.cs">
       <DependentUpon>BYSDNEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\Table_BlogReply.cs">
+      <DependentUpon>BYSDNEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Table_SubBlogReply.cs">
+      <DependentUpon>BYSDNEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,6 +222,7 @@
     <Compile Include="Models\BBSContentModel.cs" />
     <Compile Include="Models\BBSHomePageDataModel.cs" />
     <Compile Include="Models\BBSTitleModel.cs" />
+    <Compile Include="Models\BlogReplyModel.cs" />
     <Compile Include="Models\DashBoardModel.cs" />
     <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="Models\QeustionBriefModel.cs" />

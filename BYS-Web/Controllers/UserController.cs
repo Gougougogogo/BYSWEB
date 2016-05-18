@@ -1,4 +1,5 @@
-﻿using BYS_Web.Entity;
+﻿using BYS_Web.Common;
+using BYS_Web.Entity;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace BYS_Web.Controllers
 {
+    [NoCache]
     public class UserController : Controller
     {
         BYSDNEntities entities = new BYSDNEntities();
@@ -19,6 +21,16 @@ namespace BYS_Web.Controllers
         public ActionResult Registe()
         {
             ViewBag.Name = Request.LogonUserIdentity.Name;
+            if (ViewBag.Name != string.Empty)
+            {
+                var result = (from a in entities.Table_User
+                              where a.Name == Request.LogonUserIdentity.Name
+                              select a).FirstOrDefault();
+                if (result != null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
             return View();
         }
 

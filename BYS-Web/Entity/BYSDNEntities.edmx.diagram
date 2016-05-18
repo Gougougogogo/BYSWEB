@@ -25,6 +25,12 @@
         <AssociationConnector Association="BYSDNModel.FK_Table_Blog_Table_User" />
         <EntityTypeShape EntityType="BYSDNModel.Table_BlogAttachments" Width="1.5" PointX="8.25" PointY="4.25" />
         <AssociationConnector Association="BYSDNModel.FK_Table_BlogAttachments_Table_Blog" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_BlogReply" Width="1.5" PointX="8.25" PointY="7.625" />
+        <EntityTypeShape EntityType="BYSDNModel.Table_SubBlogReply" Width="1.5" PointX="10.5" PointY="6.125" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_BlogReply_Table_Blog" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_BlogReply_Table_User" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_SubBlogReply_Table_BlogReply" />
+        <AssociationConnector Association="BYSDNModel.FK_Table_SubBlogReply_Table_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

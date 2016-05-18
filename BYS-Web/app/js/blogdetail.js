@@ -72,11 +72,13 @@
     };
 }]);
 
-angular.module('app.blog').controller('blogDetailDialogController', ['$uibModalInstance', 'data', '$http', '$scope', '$timeout', function ($uibModalInstance, data, $http, $scope, $timeout) {
+angular.module('app.blog').controller('blogDetailDialogController', ['$uibModalInstance', 'data', '$http', '$scope', '$timeout', '$rootScope', function ($uibModalInstance, data, $http, $scope, $timeout, $rootScope) {
 
     $scope.blogContent;
     $scope.showAttachments = false;
     $scope.attachments;
+    $scope.ownUserName = $rootScope.app.userName;
+    $scope.ownUserImg = $rootScope.app.userImg;
 
     function hightLight() {
         $('pre code').each(function (i, block) {
@@ -116,9 +118,53 @@ angular.module('app.blog').controller('blogDetailDialogController', ['$uibModalI
         });
     }
 
+    function getBlogReply() {
+        $http.get('../Blog/GetBlogReplys', {
+            params: {
+                id: data.blogId,
+                Page : 1
+            }
+        }).success(function (data) {
+            if(data.success){
+                $scope.replyList = data.retData;
+                for (var i = 0; i < $scope.replyList.length; i++) {
+                    $scope.replyList[i].IsCollapsed = true;
+                }
+            }
+        });
+    }
+
+    getBlogReply();
+
     getAttachments();
+
     getContent();
     
+    $scope.replyOther = function (item) {
+        item.IsCollapsed = !item.IsCollapsed;
+    }
+
+    $scope.requestReplyOther = function (item) {
+        var req = {
+            ReplyId: item.Id,
+            content: item.newReplyContent
+        };
+
+        $http.post('../Blog/SubmitOtherReply', req).then(function (data) {
+            if (data.data.success) {
+                item.SubReply.push({
+                    ReplyContent: item.newReplyContent, UserEmail: $scope.ownUserName + '@Microsoft.com',
+                    UserImg: $scope.ownUserImg, UserName: $scope.ownUserName 
+                });
+                item.newReplyContent = '';
+                item.IsCollapsed = true;
+            };
+        },
+        function (data) {
+            var b = data;
+        });
+    }
+
     $scope.getFileName = function (inputs) {
         var index = inputs.indexOf("%%");
         var result = '';
@@ -128,13 +174,34 @@ angular.module('app.blog').controller('blogDetailDialogController', ['$uibModalI
             }
         }
         return result;
-    }
+    };
+
+    $scope.replyOwner = function () {
+        var req = {
+            id: data.blogId,
+            content: $('#reply').val()
+        }
+
+        $http.post('../Blog/SubmitReply', req).then(function (data) {
+            if (data.data.success) {
+                $scope.replyList.push({
+                    Id: data.data.retData, ReplyContent: $('#reply').val(), UserEmail: $scope.ownUserName + '@Microsoft.com',
+                    UserImg: $scope.ownUserImg, UserName: $scope.ownUserName, SubReply : [], IsCollapsed : true,newReplyContent : ''
+                });
+                $('#reply').val('');
+            }
+        },
+        function (data) {
+            var b = data;
+        });
+    };
+
+    $scope.replyList = [];
 
     $scope.close = function () {
         $uibModalInstance.dismiss();
     };
-}])
-.filter(
+}]).filter(
 'to_trusted', ['$sce', function ($sce) {
     return function (text) {
         return $sce.trustAsHtml(text);
