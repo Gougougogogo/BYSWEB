@@ -15,7 +15,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin"><span class="mr-sm ion-ios-people"></span>350</h4><small class="m0 text-muted">User Count</small>
+              <h4 class="m0 text-thin"><span class="mr-sm ion-ios-people"></span>{{ UserCount }}</h4><small class="m0 text-muted">User Count</small>
             </div>
             <div class="pull-right mt-lg">
               <sparkline values="dash.sparkValue2" options="dash.sparkOpts" data-line-color="{{colorByName('green-500')}}"></sparkline>
@@ -29,7 +29,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin"><span class="mr-sm ion-stats-bars"></span>3</h4><small class="m0 text-muted">Blog Count</small>
+              <h4 class="m0 text-thin"><span class="mr-sm ion-stats-bars"></span>{{ BlogCount }}</h4><small class="m0 text-muted">Blog Count</small>
             </div>
             <div class="pull-right mt-lg">
               <sparkline values="dash.sparkValue1" options="dash.sparkOpts" data-line-color="{{colorByName('info')}}"></sparkline>
@@ -43,7 +43,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin"><span class="mr-sm ion-forward"></span>6</h4><small class="m0 text-muted">Today's Answer</small>
+              <h4 class="m0 text-thin"><span class="mr-sm ion-forward"></span>{{ QuestionCount }}</h4><small class="m0 text-muted">Answer Count</small>
             </div>
             <div class="pull-right mt-lg">
               <sparkline values="dash.sparkValue3" options="dash.sparkOpts" data-line-color="{{colorByName('purple-400')}}"></sparkline>
@@ -57,7 +57,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin"><span class="mr-sm ion-paper-airplane"></span>12</h4><small class="m0 text-muted">Today's Question</small>
+              <h4 class="m0 text-thin"><span class="mr-sm ion-paper-airplane"></span>{{ AnswerCount }}</h4><small class="m0 text-muted">Question Count</small>
             </div>
             <div class="pull-right mt-lg">
               <sparkline values="dash.sparkValue4" options="dash.sparkOpts" data-line-color="{{colorByName('pink-500')}}"></sparkline>

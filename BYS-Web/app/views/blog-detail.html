@@ -27,7 +27,7 @@
                 </table>
             </div>       
             <div class="card-body" ng-if="Items > itemCountPerPage">
-                <uib-pagination total-items="Items" items-per-page="itemCountPerPage" ng-model="currentPage" ng-change="getBlogItems()"></uib-pagination>
+                <uib-pagination total-items="$parent.Items" items-per-page="$parent.itemCountPerPage" ng-model="$parent.currentPage" ng-change="$parent.getBlogItems()"></uib-pagination>
             </div>     
         </div>
     </div>

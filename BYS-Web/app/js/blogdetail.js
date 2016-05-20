@@ -2,12 +2,16 @@
     $scope.ItemId = $stateParams.blogTypeId;
     $scope.Items = 0;
     $scope.currentPage = 1;
-    $scope.itemCountPerPage = 20;
+    $scope.itemCountPerPage = 10;
     $scope.blogItems;
 
     $scope.publishNew = function () {
         $state.go('app.blog.newpost', { blogTypeId: $stateParams.blogTypeId });
     };
+
+    $scope.getBlogItems = function () {
+        getBlogItems();
+    }
 
     function getBlogPage () {
         $http.get('../Blog/GetItemsCount', {

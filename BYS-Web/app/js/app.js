@@ -321,9 +321,9 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$timeout', '$window', 'Colors', 'APP_MEDIAQUERY'];
+    DashboardController.$inject = ['$scope', '$timeout', '$http', '$window', 'Colors', 'APP_MEDIAQUERY'];
 
-    function DashboardController($scope, $timeout, $window, Colors, APP_MEDIAQUERY) {
+    function DashboardController($scope, $timeout, $http, $window, Colors, APP_MEDIAQUERY) {
         var vm = this;
 
         activate();
@@ -331,7 +331,16 @@
         ////////////////
         ///Init Dashboard
         ///////////////
-        function activate() { };
+        function activate() {
+            $http.get('../Home/GetBrifData').success(function (data) {
+                if (data.success) {
+                    $scope.UserCount = data.retData.UserCount;
+                    $scope.BlogCount = data.retData.BlogCount;
+                    $scope.QuestionCount = data.retData.QuestionCount;
+                    $scope.AnswerCount = data.retData.AnswerCount;
+                }
+            });
+        };
     }
 })();
 

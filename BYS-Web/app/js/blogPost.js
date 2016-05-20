@@ -192,21 +192,23 @@
             blogContent: common.htmlEncode(content),
             attachments: JSON.stringify(attchmentsList)
         };
-
+        var loader = layer.load(0);
         $.ajax({
             url: "../Blog/RequestPublish",
             type: 'POST',
             data: requestData,
             success: function (e) {
+                layer.close(loader);
                 if (e.success) {
                     $state.go('app.blog.detail', { blogTypeId: $stateParams.blogTypeId });
                 }
                 else {
                     layer.msg(e.retData);
-                }
+                }              
             },
             error: function (e) {
                 layer.msg(e.retData);
+                layer.close(loader);
             }
         });
     };
