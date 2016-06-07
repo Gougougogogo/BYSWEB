@@ -321,9 +321,9 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$timeout', '$http', '$window', 'Colors', 'APP_MEDIAQUERY'];
+    DashboardController.$inject = ['$scope', '$timeout','$state', '$http', '$window', 'Colors', 'APP_MEDIAQUERY'];
 
-    function DashboardController($scope, $timeout, $http, $window, Colors, APP_MEDIAQUERY) {
+    function DashboardController($scope, $timeout, $state, $http, $window, Colors, APP_MEDIAQUERY) {
         var vm = this;
 
         activate();
@@ -340,6 +340,17 @@
                     $scope.AnswerCount = data.retData.AnswerCount;
                 }
             });
+
+            $http.get('../BBS/GetLatestQuestion').success(function (data) {
+                if (data.success)
+                {
+                    $scope.LatestQuestion = data.retData;
+                }
+            });
+
+            $scope.GotoDetail = function (BBSId) {
+                $state.go('app.bbs.detail', { bbsId: BBSId });
+            };
         };
     }
 })();

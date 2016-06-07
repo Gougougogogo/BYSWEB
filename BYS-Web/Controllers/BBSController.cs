@@ -79,6 +79,26 @@ namespace BYS_Web.Controllers
 
             return Json(new { success = true, retData = bbs }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetLatestQuestion()
+        {
+            List<BBSTitleModel> bbs = (from a in entities.Table_Question
+                                       orderby a.Date descending
+                                       select a)
+                                       .Take(5)
+                                       .AsEnumerable()
+                                       .Select(c =>
+                                       new BBSTitleModel()
+                                       {
+                                           BBSId = c.ID.ToString(),
+                                           PublishDate = GetStringData(c.Date),
+                                           Title = c.Tittle,
+                                           UserImage = c.Table_User.Photo,
+                                           Brief = GetBrief(c.Content)
+                                       }).ToList();
+            return Json(new { success = true, retData = bbs }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetReplyInfos(string Id)
         {
             Guid id = new Guid(Id);

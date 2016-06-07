@@ -43,7 +43,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin"><span class="mr-sm ion-forward"></span>{{ QuestionCount }}</h4><small class="m0 text-muted">Answer Count</small>
+              <h4 class="m0 text-thin"><span class="mr-sm ion-forward"></span>{{ AnswerCount }}</h4><small class="m0 text-muted">Answer Count</small>
             </div>
             <div class="pull-right mt-lg">
               <sparkline values="dash.sparkValue3" options="dash.sparkOpts" data-line-color="{{colorByName('purple-400')}}"></sparkline>
@@ -57,7 +57,7 @@
         <div class="card-body pv">
           <div class="clearfix">
             <div class="pull-left">
-              <h4 class="m0 text-thin"><span class="mr-sm ion-paper-airplane"></span>{{ AnswerCount }}</h4><small class="m0 text-muted">Question Count</small>
+              <h4 class="m0 text-thin"><span class="mr-sm ion-paper-airplane"></span>{{ QuestionCount }}</h4><small class="m0 text-muted">Question Count</small>
             </div>
             <div class="pull-right mt-lg">
               <sparkline values="dash.sparkValue4" options="dash.sparkOpts" data-line-color="{{colorByName('pink-500')}}"></sparkline>
@@ -87,56 +87,11 @@
             </div>
             <div class="card-body">
                 <div class="mda-list">
-                    <div class="mda-list-item">
-                        <img class="mda-list-item-img" alt="List user" src="app/img/user/01.jpg">
+                    <div class="mda-list-item" ng-repeat="item in LatestQuestion">
+                        <img class="mda-list-item-img" src="{{ item.UserImage }}">
                         <div class="mda-list-item-text">
-                            <h3><a href="#">测试是否刷新数据?</a></h3>
-                            <p>
-                                using System;
-                                using System.Collections.Generic;
-                                using System.Linq;
-                                using System.Web;
-                                using System.Web.Mvc;
-
-                                namespace STAC.Controllers
-                                {
-                                public class IKBController : Controller
-                                {
-                                // GET: IKB
-                                public ActionResult Upcomming()
-                                {
-                                return View();
-                                }
-                                }
-                                }
-                                上端代码运行不通过，是什么原因呢？
-                            </p>
-                        </div>
-                    </div>
-                    <div class="mda-list-item">
-                        <img class="mda-list-item-img" alt="List user" src="app/img/user/02.jpg">
-                        <div class="mda-list-item-text">
-                            <h3><a href="#">Catherine Crawford</a></h3>
-                            <p>
-                                Near twenty years ago, Christina Cyr and Linda Inagawa started working at Microsoft on the same day. All week they kept finding their new colleagues mixing them up, until on the Friday they finally met. They've been friends ever since -- and now, they've teamed up to change the way mobile phones are designed.
-                                Cyr and Inagawa's company is called Dtoor -- whic...
-                            </p>
-                        </div>
-                    </div>
-                    <div class="mda-list-item">
-                        <img class="mda-list-item-img" alt="List user" src="app/img/user/03.jpg">
-                        <div class="mda-list-item-text">
-                            <h3><a href="#">Rosemary Jimenez</a></h3>
-                            <h4>Brunch this weekend?</h4>
-                            <p> I'll be in your neighborhood doing errands</p>
-                        </div>
-                    </div>
-                    <div class="mda-list-item">
-                        <img class="mda-list-item-img" alt="List user" src="app/img/user/04.jpg">
-                        <div class="mda-list-item-text">
-                            <h3><a href="#">Guy Carpenter</a></h3>
-                            <h4>Brunch this weekend?</h4>
-                            <p> I'll be in your neighborhood doing errands</p>
+                            <h3><a ng-click="GotoDetail(item.BBSId)">{{ item.Title }}</a></h3>
+                            <p> {{ item.Brief }} </p>
                         </div>
                     </div>
                 </div>
